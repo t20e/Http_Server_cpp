@@ -81,8 +81,20 @@ all:$(APP_TARGET)
 
 # Rule to build and run the test test_httpServer with `make test`
 test: $(TEST_TARGET)
-	@echo "Running tests..."
+	@echo "\nRunning tests (Test_httpServer)..."
+	$(PRINT_SEPARATOR)
+	@echo "\n\n"
 	@./$(TEST_TARGET)
+
+
+run: $(APP_TARGET) # Run app with `make run`
+	@echo "\nRunning Build Application (HttpServer)..."
+	$(PRINT_SEPARATOR)
+	@echo "\n\n"
+	@./$(APP_TARGET)
+
+# Function to print a separator of 64 (-)
+PRINT_SEPARATOR := @printf "%64s" | tr ' ' '-'
 
 # Rule for linking all object files into the final main application executable (HttpServer).
 # 	This rule only runs if the executable is missing or an object file has been modified.

@@ -1,0 +1,40 @@
+#landingPage__cont {
+    margin-top: 10em;
+}
+
+.landingPage__title {
+    text-align: center;
+    margin-bottom: 3em;
+}
+
+.landingPage__title h1 {
+    color: #f4ac45;
+}
+.landingPage__title p {
+    color: #50514f;
+    font-style: italic;
+    margin-top: .3em;
+}
+
+.landing_page_btns {
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.landing_page_btns button {
+    cursor: pointer;
+    color: white;
+    background-color: #4a8fe7;
+    margin: 0 2rem;
+    border-radius: 0.3em;
+    padding: 0.3em 1.5em;
+    border: none;
+    outline: none;
+}
+
+.reg {
+    display: none;
+}
+.login {
+    display: none;
+}

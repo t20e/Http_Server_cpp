@@ -1,0 +1,67 @@
+# C/C++ by microsoft and ClangD extensions formatter configurations. Add to the user's home directory for global or keep in project root.
+
+Language: Cpp
+BasedOnStyle: LLVM
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignOperands: true
+AlignTrailingComments: false
+AlwaysBreakTemplateDeclarations: Yes
+BraceWrapping:
+    AfterCaseLabel: false
+    AfterClass: false
+    AfterControlStatement: false
+    AfterEnum: false
+    AfterFunction: true
+    AfterNamespace: false
+    AfterStruct: false
+    AfterUnion: false
+    AfterExternBlock: false
+    BeforeCatch: false
+    BeforeElse: false
+    BeforeLambdaBody: false
+    BeforeWhile: false
+    SplitEmptyFunction: true
+    SplitEmptyRecord: true
+    SplitEmptyNamespace: true
+BreakBeforeBraces: Custom
+BreakConstructorInitializers: AfterColon
+BreakConstructorInitializersBeforeComma: false
+AlignAfterOpenBracket: AlwaysBreak
+
+BinPackParameters: false
+AllowAllParametersOfDeclarationOnNextLine: false
+
+ColumnLimit: 0
+ReflowComments: false
+CompactNamespaces: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+ContinuationIndentWidth: 4
+AlwaysBreakAfterReturnType: None
+IncludeCategories:
+    - Regex: "^<.*"
+      Priority: 1
+    - Regex: '^".*'
+      Priority: 2
+    - Regex: ".*"
+      Priority: 3
+IncludeIsMainRegex: "([-_](test|unittest))?$"
+IndentAccessModifiers: True
+IndentCaseLabels: true
+IndentWidth: 4
+IndentWrappedFunctionNames: true
+InsertNewlineAtEOF: true
+MacroBlockBegin: ""
+MacroBlockEnd: ""
+MaxEmptyLinesToKeep: 2
+NamespaceIndentation: All
+SpaceAfterCStyleCast: true
+SpaceAfterTemplateKeyword: false
+SpaceBeforeRangeBasedForLoopColon: false
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+SpacesInConditionalStatement: false
+SpacesInCStyleCastParentheses: false
+SpacesInParentheses: false
+TabWidth: 4
+UseTab: Always

@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+html,
+body {
+    background-color: #ecf8f8;
+    overflow: hidden;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #50514F;
+    font-size: larger;
+    opacity: 1;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #50514F;
+    font-size: larger;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #50514F;
+    font-size: larger;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.2em;
+    position: relative;
+    left: 2em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 20em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: silver;
+    border-radius: 20em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    width: 0.4em;
+    background: blue;
+}
+
+/* hide input arrows  */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+b {
+    font-weight: bold;
+}
+
+li {
+    list-style-type: none;
+}
+
+button {
+    cursor: pointer;
+}
+/* 
+table css
+table {
+    table-layout: fixed;
+    width: 100%;
+    height: 50%;
+    border-collapse: collapse;
+}
+
+table thead {
+    position: sticky;
+    top: -1em;
+    background-color: #f7f9f7;
+}
+
+table thead tr {
+    border-bottom: 0.1em solid #b4b4b4b1;
+}
+
+table td:first-of-type,
+table td:nth-of-type(2),
+table td:nth-of-type(3) {
+    border-right: 0.01em solid #cdcbcd;
+}
+
+td {
+    text-align: center;
+}
+
+td {
+    padding: 0.1em 0;
+} */
+
+
+/* input errors */
+.formErr {
+    color: #D81E5B;
+    background-color: aqua;
+    height: 20px;
+    width: 100px;
+}
+
+/* git link */
+@keyframes growAlert {
+    0% {
+        width: 0rem;
+        display: block;
+    }
+
+    10% {
+        width: 30rem;
+        display: none;
+    }
+
+    90% {
+        width: 30rem;
+        display: block;
+    }
+
+    100% {
+        width: 0rem;
+        display: none;
+    }
+}
+  
