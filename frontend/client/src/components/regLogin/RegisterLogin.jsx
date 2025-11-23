@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../../styles/regLogin.css";
 
 import axios from "axios";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const onlyLettersRegex = new RegExp(/^[A-Za-z]+$/);
 
-const RegisterLogin = ({ vibrateErr, changeErrVibrate }) => {
+const RegisterLogin = () => {
     const { loggedUser, setLoggedUser } = useContext(UserContext);
     const redirect = useNavigate();
     const [username, setUsername] = useState("");
@@ -17,58 +17,33 @@ const RegisterLogin = ({ vibrateErr, changeErrVibrate }) => {
         passwordError: "",
     });
 
-    const regUser = (e) => {
-        // e.preventDefault();
-        // if (currInput === "email") {
-        //     setFormErrors({ checkingEmail: "checking if email is available" });
-        //     checkTakenEmail(newUser.email);
-        //     return;
-        // } else if (Object.keys(formErrors).length > 0) {
-        //     changeErrVibrate();
-        //     return;
-        // } else if (
-        //     inputsInOrder.indexOf(currInput) !==
-        //     inputsInOrder.length - 1
-        // ) {
-        //     setCurrInput(inputsInOrder[inputsInOrder.indexOf(currInput) + 1]);
-        //     return;
-        // }
-        // console.log("all input entered");
-        // const formData = new FormData();
-        // formData.append("first_name", newUser.firstName);
-        // formData.append("last_name", newUser.lastName);
-        // formData.append("age", newUser.age);
-        // formData.append("email", newUser.email);
-        // formData.append("password", newUser.password);
-        // formData.append("confirmPassword", newUser.confirmPassword);
-        // formData.append("pfp", newUser.profilePic);
-        // submitForm(formData, "api/users/register/");
-    };
+    // Watch for changes of loggedUser variable, so we only redirect when the update has taken place and is being rendered.
+    useEffect(() => {
+        if (loggedUser) {
+            console.log(
+                "Context updated! Redirecting... loggedUser:",
+                loggedUser
+            );
+            redirect("/dashboard");
+        }
+    }, [loggedUser, redirect]);
 
-    const submitForm = (data, url) => {
+    const submitForm = (data, url, purpose = "Login") => {
         axios
-            .post(`http://localhost:8000/${url}`, data, {
+            .post(`http://localhost:8080/${url}`, data, {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log(res);
-                if (res.data["errors"] === true) {
-                    if (res.data["loginFail"]) {
-                        changeErrVibrate();
-                        return setFormErrors({ loginFail: res.data["msg"] });
-                    } else {
-                        return alert(
-                            "error please refresh page",
-                            res.data["body"]
-                        );
-                    }
-                }
-                console.log("successfully login or registered user");
-                setLoggedUser(res.data.body.user);
-                redirect("/Dashboard");
+                console.log(`${purpose} successful`, res.data);
+                const userData = {
+                    userID: res.data.userID,
+                    username: res.data.username,
+                };
+                setLoggedUser(userData); // this triggers the re-render and useEffect above will run
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.response.data["Error"]);
+                return alert(`Error: ${err.response.data["Error"]}`);
             });
     };
 
@@ -111,11 +86,29 @@ const RegisterLogin = ({ vibrateErr, changeErrVibrate }) => {
 
     const register = (e) => {
         e.preventDefault();
-        console.log(username, password)
+        if (
+            formErrors["passwordError"].length !== 0 ||
+            formErrors["usernameError"].length !== 0
+        ) {
+            console.log("Errors exist");
+            return;
+        }
+
+        const params = new URLSearchParams();
+        params.append("username", username);
+        params.append("password", password);
+
+        submitForm(params, "api/register", "Register");
     };
+
     const login = (e) => {
         e.preventDefault();
-        console.log(username, password)
+
+        const params = new URLSearchParams();
+        params.append("username", username);
+        params.append("password", password);
+
+        submitForm(params, "api/login", "Login");
     };
 
     return (
@@ -130,7 +123,7 @@ const RegisterLogin = ({ vibrateErr, changeErrVibrate }) => {
                     value={username}
                 />
                 {formErrors["usernameError"] ? (
-                    <div className={`reg__err ${vibrateErr}`}>
+                    <div className={"reg__err"}>
                         <p>{formErrors["usernameError"]}</p>
                     </div>
                 ) : null}
@@ -144,7 +137,7 @@ const RegisterLogin = ({ vibrateErr, changeErrVibrate }) => {
                 />
 
                 {formErrors["passwordError"] ? (
-                    <div className={`reg__err ${vibrateErr}`}>
+                    <div className={"reg__err"}>
                         <p>{formErrors["passwordError"]}</p>
                     </div>
                 ) : null}

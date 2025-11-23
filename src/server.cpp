@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <iostream>
 #include <sstream>
 
@@ -11,7 +12,8 @@
 
 using std::cout;
 
-Server::Server(Config &config, Router &router) : config_(config), router_(router) {}
+Server::Server(Config &config, Router &router)
+	: config_(config), router_(router) {}
 
 int Server::launchServer()
 {
@@ -50,7 +52,8 @@ int Server::Listen()
 		cout << "Failed to start listening for incoming connections\n";
 		return -1;
 	}
-	cout << std::string(16, '-') << std::format(" Listening on port: {} ", config_.server_port) << std::string(16, '-') << std::endl;
+	cout << "\n"
+		 << std::string(16, '-') << std::format(" Listening on port: {} ", config_.server_port) << std::string(16, '-') << std::endl;
 
 	while (true) {
 		cout << "\nWaiting for a new connection...\n";
@@ -62,7 +65,7 @@ int Server::Listen()
 			continue;
 		}
 
-		cout << "\nClient Connected:\n";
+		cout << "\n------------------------------------\nClient Connected:\n";
 
 		// Receive date from a client
 		char buffer[bufferSizeLimit_] = {0};
@@ -108,12 +111,19 @@ void Server::process_request(const char *buffer, ssize_t bytesReceived, const in
 	std::istringstream header_stream(headers_only);
 	std::string line;
 
-	while (std::getline(header_stream, line, '\r')) { // read headers line by line
+	while (std::getline(header_stream, line)) { // read headers line by line
+		// HTTP lines end in \r\n, getline() consumes '\n', so we also need to remove the '\r'
+		if (!line.empty() && line.back() == '\r') {
+			line.pop_back();
+		}
+
 		if (line.rfind("Content-Length", 0) == 0) {
 			try {
 				// Extract the content length info
-				std::string len_str = line.substr(16);
-				req.content_length = std::stoi(len_str);
+				size_t colonPos = line.find(':');
+				if (colonPos != std::string::npos) {
+					req.content_length = std::stoi(line.substr(colonPos + 1));
+				}
 			} catch (const std::exception &e) {
 				std::cerr << "Content-Length parsing error" << e.what() << '\n';
 				// TODO add error handling
@@ -130,7 +140,7 @@ void Server::process_request(const char *buffer, ssize_t bytesReceived, const in
 
 
 	// Edge case where the body might be large than the bufferSizeLimit
-	if (req.body.length() < req.content_length) {
+	if (static_cast<int>(req.body.length()) < req.content_length) {
 		size_t remaining_bytes = req.content_length - req.body.length();
 
 		while (remaining_bytes > 0) {
@@ -151,11 +161,10 @@ void Server::process_request(const char *buffer, ssize_t bytesReceived, const in
 		}
 	}
 
-	cout << std::format("Extracted Method: {}, Extracted path: {}, Content-Length\n", req.method, req.path, req.content_length);
+	cout << std::format("Extracted Method: {}, Extracted path: {}, Content-Length: {}\n", req.method, req.path, req.content_length);
 
 	if (req.method == "POST" && req.body.length() > 0) {
-		cout << "Body Data:\n------\n"
-			 << req.body << "\n------\n";
+		cout << "Request Body Data (UrlEncoded string): " << req.body << "\n";
 	}
 	router_.route(req, clientSocket);
 }

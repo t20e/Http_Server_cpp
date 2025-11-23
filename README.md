@@ -3,9 +3,10 @@
 Prerequisites/Third-party software:
 
 1. Google Test (GTest)
-2. MongoDB: Offline/local database to store user info.
+2. SQLite: Local database.
 3. React: Frontend, solely for demonstration purposes.
-4. C++20
+4. Clang++ | C++20
+5. [Bcrypt.cpp](https://github.com/hilch/Bcrypt.cpp)
 
 Objectives:
 

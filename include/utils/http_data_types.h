@@ -3,18 +3,24 @@
 #include <string>
 
 
+struct User {
+		int userId;
+		std::string username;
+		std::string passwordHash;
+};
+
 /**
  * @brief Struct to store the parsed components of an incoming HTTP request.
  * 
  */
 struct HttpRequest {
-	std::string method;
-	std::string path;
-	std::string http_version;
-	int content_length = 0;
-	std::string content_type;
+		std::string method;
+		std::string path;
+		std::string http_version;
+		int content_length = 0;
+		std::string content_type;
 
-	std::string body;
+		std::string body;
 };
 
 /**

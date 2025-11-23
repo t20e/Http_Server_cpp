@@ -25,8 +25,8 @@ BraceWrapping:
     SplitEmptyRecord: true
     SplitEmptyNamespace: true
 BreakBeforeBraces: Custom
-BreakConstructorInitializers: AfterColon
-BreakConstructorInitializersBeforeComma: false
+AllowShortFunctionsOnASingleLine: Empty
+PackConstructorInitializers: CurrentLine
 AlignAfterOpenBracket: AlwaysBreak
 
 BinPackParameters: false

@@ -1,7 +1,8 @@
 #pragma once
 
-#include "utils/http_data_types.h"
 #include "config.h"
+#include "sqlite_db.h"
+#include "utils/http_data_types.h"
 
 /**
  * @brief Class that manages all routes and request response formating.
@@ -9,7 +10,7 @@
  */
 class RequestHandler {
 	public:
-        // RequestHandler();
+		explicit RequestHandler(SQLiteDB &db);
 
 		/**
          * @brief Respond with a 404 content not found
@@ -35,17 +36,27 @@ class RequestHandler {
          * @return int 
          */
 		int login(const HttpRequest &req, int clientSocket);
-        
+
 		/**
          * @brief Log the user in.
          * 
-         * @param req The parsed request contents
+         * @param req The parsed request contents.
          * @param clientSocket The clients socket to send that response to.
          * @return int 
          */
-		int reg(const HttpRequest &req, int clientSocket);
+		int registerUser(const HttpRequest &req, int clientSocket);
+
+		/**
+         * @brief On a POST request, with `withCredentials` or another custom header like `Content-Type: application/json`, the browser will send an OPTIONS preflight request before the POST request to verify if it's safe, this function handles that OPTIONS request.
+         * 
+         * @param req The parsed request contents.
+         * @param clientSocket 
+         * @return int 
+         */
+		int handlePreflight(const HttpRequest &req, const int &clientSocket);
 
 	private:
+		SQLiteDB &db_;
 
 		/**
          * @brief Create a Response object
@@ -55,7 +66,7 @@ class RequestHandler {
          * @param content_type What type of content will be sent.
          * @return std::string Returns a string format of the response.
          */
-		std::string createResponse(const std::string &body, int status = 200, const std::string &content_type = "application/json");
+		std::string createResponse(const std::string &body, int status, const std::string &content_type = "application/json");
 
 
 		/**
@@ -65,5 +76,5 @@ class RequestHandler {
          * @param clientSocket The clients socket to send that response to.
          * @return int 
          */
-		int sendRes(std::string res, const int &clientSocket);
+		int sendResponse(std::string res, const int &clientSocket);
 };

@@ -2,7 +2,8 @@
 
 #include "router.h"
 
-Router::Router(RequestHandler &handler) : handler_(handler)
+Router::Router(RequestHandler &handler)
+	: handler_(handler)
 {
 	router_map_ = {
 		// GET
@@ -10,20 +11,26 @@ Router::Router(RequestHandler &handler) : handler_(handler)
 			"GET /api/getImage",
 			[this](const HttpRequest &req, const int &clientSocket) { this->handler_.handle_test_get(req, clientSocket); },
 		},
+
 		// POST
 		{
-			"POST /api/login",
+			"POST /api/login", // Logging-in is a POST request for security
 			[this](const HttpRequest &req, const int &clientSocket) { this->handler_.login(req, clientSocket); },
 		},
 		{
 			"POST /api/register",
-			[this](const HttpRequest &req, const int &clientSocket) { this->handler_.reg(req, clientSocket); },
+			[this](const HttpRequest &req, const int &clientSocket) { this->handler_.registerUser(req, clientSocket); },
 		},
 	};
 }
 
 void Router::route(const HttpRequest &req, const int clientSocket)
 {
+	if (req.method == "OPTIONS") { // Handle POST OPTIONS preflight
+		std::cout << "Handling OPTIONS preflight for: " << req.path << std::endl;
+		return (void) handler_.handlePreflight(req, clientSocket);
+	}
+
 	std::string key = req.method + " " + req.path;
 	auto i = router_map_.find(key);
 
