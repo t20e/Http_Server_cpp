@@ -9,7 +9,7 @@ const Landing_page = () => {
         <div ref={mainDisplayRef} id="landingPage__cont">
             <div className="landingPage__title">
                 <h1>C++ HTTP Server</h1>
-                <p>Note: This is not a Web-development project!</p>
+                <p>✨ Note: This is not a Web-development project! The backend C++ HTTP Server built from scratch is the main project.✨</p>
             </div>
             <RegisterLogin />
         </div>

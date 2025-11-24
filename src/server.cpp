@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 #include "config.h"
-#include "server.h"
+#include "Server.h"
 
 using std::cout;
 

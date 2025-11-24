@@ -32,14 +32,23 @@ class SQLiteDB {
         /**
          * @brief Get the user from the database using their userID
          * 
-         * @param userId 
+         * @param userId
          * @return DbResult 
          */
 		DbResult getUser(int userId);
-        // Overload function to get user by username
+
+        /**
+         * @brief Overload function to get user by username
+         * 
+         */
 		DbResult getUser(std::string username);
 
-
+        /**
+         * @brief Get all users
+         * 
+         * @return DbResult A vector of users, if no users are found than it will return an empty vector.
+         */
+        DbListResult getAllUsers();
 
 
 	private:
@@ -60,11 +69,19 @@ class SQLiteDB {
          */
 		int initSchema();
 
+        // /**
+        //  * @brief Fetch a user from DB.
+        //  * 
+        //  * @param stmt The query statement.
+        //  * @return DbResult
+        //  */
+        // DbResult fetchUser(sqlite3_stmt *stmt);
+
         /**
-         * @brief Fetch a user from DB.
+         * @brief Helper function to extract a user's data from a row and into a User object.
          * 
-         * @param stmt SQLite query.
-         * @return DbResult
+         * @param stmt The query statement.
+         * @return User 
          */
-        DbResult fetchUser(sqlite3_stmt *stmt);
+        User extractUserFromRow(sqlite3_stmt *stmt);
 };

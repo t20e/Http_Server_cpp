@@ -13,7 +13,9 @@
 .landingPage__title p {
     color: #50514f;
     font-style: italic;
-    margin-top: .3em;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 0.3em;
 }
 
 .landing_page_btns {

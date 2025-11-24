@@ -1,6 +1,7 @@
 #include <iostream>
 
-#include "router.h"
+#include "Router.h"
+#include "RequestHandler.h"
 
 Router::Router(RequestHandler &handler)
 	: handler_(handler)
@@ -8,8 +9,12 @@ Router::Router(RequestHandler &handler)
 	router_map_ = {
 		// GET
 		{
-			"GET /api/getImage",
-			[this](const HttpRequest &req, const int &clientSocket) { this->handler_.handle_test_get(req, clientSocket); },
+			"GET /api/getRandomImage",
+			[this](const HttpRequest &req, const int &clientSocket) { this->handler_.getRandomImage(req, clientSocket); },
+		},
+		{
+			"GET /api/getAllusers",
+			[this](const HttpRequest &req, const int &clientSocket) { this->handler_.getAllUser(req, clientSocket); },
 		},
 
 		// POST

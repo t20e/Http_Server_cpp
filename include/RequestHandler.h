@@ -1,7 +1,7 @@
 #pragma once
 
 #include "config.h"
-#include "sqlite_db.h"
+#include "SQLiteDB.h"
 #include "utils/http_data_types.h"
 
 /**
@@ -17,15 +17,6 @@ class RequestHandler {
          * 
          */
 		void send404(const int &client_socket);
-
-		/**
-         * @brief Send a cat image back to the user.
-         *
-         * @param req The parsed request contents
-         * @param clientSocket The clients socket to send that response to.
-         * @return int 
-         */
-		int handle_test_get(const HttpRequest &req, int clientSocket);
 
 
 		/**
@@ -50,10 +41,30 @@ class RequestHandler {
          * @brief On a POST request, with `withCredentials` or another custom header like `Content-Type: application/json`, the browser will send an OPTIONS preflight request before the POST request to verify if it's safe, this function handles that OPTIONS request.
          * 
          * @param req The parsed request contents.
-         * @param clientSocket 
+         * @param clientSocket The clients socket to send that response to.
          * @return int 
          */
 		int handlePreflight(const HttpRequest &req, const int &clientSocket);
+
+
+        /**
+         * @brief Get all the users from the database.
+         * 
+         * @param req The parsed request contents.
+         * @param clientSocket The clients socket to send that response to.
+         * @return int 
+         */
+        int getAllUser(const HttpRequest &req, const int &clientSocket);
+
+
+        /**
+         * @brief Get a random image that is stored in the file system, not in the database
+         * 
+         * @param req The parsed request contents.
+         * @param client_socket The clients socket to send that response to.
+         * @return int 
+         */
+        int getRandomImage(const HttpRequest &req, const int &client_socket);
 
 	private:
 		SQLiteDB &db_;

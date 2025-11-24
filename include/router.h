@@ -2,8 +2,7 @@
 #include <unordered_map>
 
 #include "utils/http_data_types.h"
-#include "request_handler.h"
-
+#include "./RequestHandler.h"
 
 /**
  * @brief Classes that manages the appropiate handler function for HTTP methods and paths

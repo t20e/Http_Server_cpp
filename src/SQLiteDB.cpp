@@ -3,8 +3,9 @@
 #include <iostream>
 #include <sqlite3.h>
 #include <string>
+#include <vector>
 
-#include "sqlite_db.h"
+#include "./SQLiteDB.h"
 #include "utils/error_handling_template.h"
 #include "utils/http_data_types.h"
 
@@ -113,31 +114,31 @@ DbResult SQLiteDB::addUser(std::string username, std::string password)
 }
 
 
-DbResult SQLiteDB::fetchUser(sqlite3_stmt *stmt)
-{
-	int rc = sqlite3_step(stmt); // Execute the query
+// DbResult SQLiteDB::fetchUser(sqlite3_stmt *stmt)
+// {
+// 	int rc = sqlite3_step(stmt); // Execute the query
 
-	if (rc == SQLITE_ROW) {
-		std::cout << "Found User.\n";
-		int id = sqlite3_column_int((stmt), 0);
-		const char *usernamePtr = (const char *) sqlite3_column_text(stmt, 1);
-		const char *hashPtr = (const char *) sqlite3_column_text(stmt, 2);
+// 	if (rc == SQLITE_ROW) {
+// 		std::cout << "Found User.\n";
+// 		int id = sqlite3_column_int((stmt), 0);
+// 		const char *usernamePtr = (const char *) sqlite3_column_text(stmt, 1);
+// 		const char *hashedPasswordPtr = (const char *) sqlite3_column_text(stmt, 2);
 
-		// std::cout << std::format("User's username: {} | and | hashedPassword: {} from the database.\n", usernamePtr, hashPtr);
-		User user{id, usernamePtr ? std::string(usernamePtr) : "", hashPtr ? std::string(hashPtr) : ""};
+// 		// std::cout << std::format("User's username: {} | and | hashedPassword: {} from the database.\n", usernamePtr, hashedPasswordPtr);
+// 		User user{id, usernamePtr ? std::string(usernamePtr) : "", hashedPasswordPtr ? std::string(hashedPasswordPtr) : ""};
 
-		sqlite3_finalize(stmt); //clean up memory
-		return user;
-	}
-	if (rc == SQLITE_DONE) {
-		std::cerr << std::format("Sql execution failed, user not found | Error: {}\n", sqlite3_errmsg(database_connection_));
-		sqlite3_finalize(stmt); // Finalize even on error to prevent memory leak!
-		return std::unexpected("User not found!");
-	}
-	sqlite3_finalize(stmt); // Finalize even on error to prevent memory leak!
-	std::cout << "Server error during query execution!\n";
-	return std::unexpected("Server error during query execution!");
-}
+// 		sqlite3_finalize(stmt); //clean up memory
+// 		return user;
+// 	}
+// 	if (rc == SQLITE_DONE) {
+// 		std::cerr << std::format("Sql execution failed, user not found | Error: {}\n", sqlite3_errmsg(database_connection_));
+// 		sqlite3_finalize(stmt); // Finalize even on error to prevent memory leak!
+// 		return std::unexpected("User not found!");
+// 	}
+// 	sqlite3_finalize(stmt); // Finalize even on error to prevent memory leak!
+// 	std::cout << "Server error during query execution!\n";
+// 	return std::unexpected("Server error during query execution!");
+// }
 
 
 DbResult SQLiteDB::getUser(int userId)
@@ -152,7 +153,16 @@ DbResult SQLiteDB::getUser(int userId)
 
 	// Bind the userId int to the '?' placeholder
 	sqlite3_bind_int(stmt, 1, userId);
-	return fetchUser(stmt);
+
+	if (sqlite3_step(stmt) == SQLITE_ROW) {
+		User user = extractUserFromRow(stmt);
+		sqlite3_finalize(stmt);
+		return user;
+	}
+
+	sqlite3_finalize(stmt);
+    std::cout << "couldn't not fetch user from their id: " << userId << std::endl;
+	return std::unexpected("User not found");
 }
 
 DbResult SQLiteDB::getUser(std::string username)
@@ -167,5 +177,50 @@ DbResult SQLiteDB::getUser(std::string username)
 
 	// Bind the userId int to the '?' placeholder
 	sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
-	return fetchUser(stmt);
+
+	if (sqlite3_step(stmt) == SQLITE_ROW) {
+		User user = extractUserFromRow(stmt);
+		sqlite3_finalize(stmt);
+		return user;
+	}
+
+	sqlite3_finalize(stmt);
+	std::cout << "couldn't not fetch user from their username: " << username << std::endl;
+	return std::unexpected("User not found");
+}
+
+
+User SQLiteDB::extractUserFromRow(sqlite3_stmt *stmt)
+{
+	int id = sqlite3_column_int(stmt, 0);
+
+	const char *usernamePtr = (const char *) sqlite3_column_text(stmt, 1);
+	const char *hashedPasswordPtr = (const char *) sqlite3_column_text(stmt, 2);
+
+	return User{
+		id,
+		usernamePtr ? std::string(usernamePtr) : "",
+		hashedPasswordPtr ? std::string(hashedPasswordPtr) : "",
+	};
+}
+
+
+DbListResult SQLiteDB::getAllUsers()
+{
+	const char *sql = "SELECT * FROM Users";
+	sqlite3_stmt *stmt; //Holds a compiled query statement.
+
+	if (sqlite3_prepare_v2(database_connection_, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+		std::cerr << "Failed to prepare query statement, to fetch the user using their username" << sqlite3_errmsg(database_connection_) << std::endl;
+		return std::unexpected("Issue with your input.");
+	}
+    
+	std::vector<User> users;
+
+	// Execute query statement per user and loop for all the rows of users.
+	while (sqlite3_step(stmt) == SQLITE_ROW) {
+		users.push_back(extractUserFromRow(stmt));
+	}
+	sqlite3_finalize(stmt);
+	return users;
 }

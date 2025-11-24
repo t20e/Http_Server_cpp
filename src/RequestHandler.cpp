@@ -1,15 +1,24 @@
 #include <bcrypt.h>
+#include <exception>
 #include <expected>
+#include <filesystem>
 #include <format>
+#include <fstream>
 #include <iostream>
+#include <iterator>
+#include <random>
 #include <regex>
+#include <set>
+#include <string>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <vector>
 
-#include "request_handler.h"
+
+#include "./RequestHandler.h"
+#include "utils/JsonResponse.h"
 #include "utils/error_handling_template.h"
 #include "utils/http_data_types.h"
-#include "utils/json_response.h"
 #include "utils/urlEncoded_parsing.h"
 
 using std::cout;
@@ -17,13 +26,6 @@ using std::cout;
 RequestHandler::RequestHandler(SQLiteDB &db)
 	: db_(db) {}
 
-int RequestHandler::handle_test_get(const HttpRequest &req, int clientSocket)
-{
-	cout << req.path;
-	std::string res = createResponse("bodyTEST", 200);
-	sendResponse(res, clientSocket);
-	return 0;
-}
 
 int RequestHandler::login(const HttpRequest &req, int clientSocket)
 {
@@ -134,7 +136,6 @@ void RequestHandler::send404(const int &clientSocket)
 	sendResponse(res, clientSocket);
 }
 
-
 std::string RequestHandler::createResponse(const std::string &body, int status, const std::string &content_type)
 {
 	// Example json string body: "{\"name\": \"john\"}"
@@ -181,6 +182,126 @@ int RequestHandler::handlePreflight(const HttpRequest &req, const int &clientSoc
 						  "Content-Length: 0\r\n";
 		send(clientSocket, res.c_str(), res.length(), 0);
 		close(clientSocket);
+	}
+	return 0;
+}
+
+
+int RequestHandler::getAllUser(const HttpRequest &req, const int &clientSocket)
+{
+	cout << "Getting all users\n";
+
+	JsonResponse response;
+	DbListResult db_result = db_.getAllUsers();
+
+	// check for database error
+	if (!db_result.has_value()) {
+		response.add("Error", db_result.error());
+		sendResponse(createResponse(response.dump(), 404), clientSocket);
+		return 1;
+	}
+
+	std::vector<JsonResponse> usersVector;
+
+	// Add each user to the Json
+	for (User user: *db_result) {
+		JsonResponse userObj;
+		// cout << std::format("User: {}\n", user.username);
+		userObj.add("userID", user.userId);
+		userObj.add("username", user.username);
+		usersVector.push_back(userObj);
+	}
+
+	response.add("users", usersVector);
+	cout << "Response: " << response.dump() << std::endl;
+
+	sendResponse(createResponse(response.dump(), 200), clientSocket);
+	return 0;
+}
+
+int RequestHandler::getRandomImage(const HttpRequest &req, const int &client_socket)
+{
+	std::string images_directory_path = "./server_images";
+
+	std::set<std::string> img_extensions = {
+		".jpg", ".jpeg", ".png"};
+
+	try {
+		std::vector<std::filesystem::path> found_images;
+
+		// Iterate over the directory and collect valid image paths
+		for (const auto &entry: std::filesystem::directory_iterator(images_directory_path)) {
+			if (entry.is_regular_file()) {
+				std::string ext = entry.path().extension().string();
+				if (img_extensions.count(ext)) { // Match to an image extension
+					found_images.push_back(entry.path());
+				}
+			}
+		}
+
+		// Handle case where no images are found.
+		if (found_images.empty()) {
+			std::cerr << std::format("No images found in: {}\n", images_directory_path);
+			sendResponse(createResponse("No images found", 4904), client_socket);
+			return 1;
+		}
+
+		// Select a random image
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<> distrib(0, found_images.size() - 1);
+
+		std::filesystem::path selected_file = found_images[distrib(gen)];
+		cout << std::format("Random Image Path: {}\n", selected_file.string());
+
+		// Open the image file in binary mode
+		std::ifstream file(selected_file, std::ios::binary);
+
+		if (!file.is_open()) {
+			sendResponse(createResponse("Server Error: could not retrieve image", 500), client_socket);
+			return 1;
+			;
+		}
+
+		// Read the entire file into a string buffer
+		std::string image_buffer((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+		// Determine the image extension content-type to create a response object
+		std::string image_ext = selected_file.extension().string();
+		std::string content_type = "image/jpeg"; // default
+
+		if (image_ext == ".png")
+			content_type = "image/png";
+
+		// Construct response
+		std::string headers = std::format(
+			"HTTP/1.1 200 OK\r\n"
+			"Content-Type: {}\r\n"
+			"Content-Length: {}\r\n"
+			// ----- Headers
+			"Access-Control-Allow-Origin: http://localhost:3000\r\n" // Connection to frontend
+			"Access-Control-Allow-Credentials: true\r\n" // allow cookies
+			"Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
+			"Access-Control-Allow-Headers: Content-Type\r\n" // allow json content
+			// -----
+			"Connection: close\r\n"
+			"\r\n",
+			content_type,
+			image_buffer.size());
+
+		// Respond
+		// Send the preflight
+		send(client_socket, headers.c_str(), headers.size(), 0);
+		// Send the POST image buffer data
+		send(client_socket, image_buffer.data(), image_buffer.size(), 0);
+		return 0;
+
+	} catch (const std::filesystem::filesystem_error &err) {
+		std::cerr << std::format("Unknown error: {}\n", err.what());
+		sendResponse(createResponse("Server error: getting a random image.", 500), client_socket);
+	} catch (const std::exception &err) {
+		std::cerr << std::format("Unknown error: {}\n", err.what());
+		sendResponse(createResponse("Unknown Server error: getting a random image.", 500), client_socket);
 	}
 	return 0;
 }

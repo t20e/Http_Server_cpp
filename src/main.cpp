@@ -1,14 +1,13 @@
 #include <iostream>
-#include <server.h>
+#include <Server.h>
 #include <sqlite3.h>
+#include <string>
 
 #include "config.h"
-#include "request_handler.h"
-#include "router.h"
-#include "sqlite_db.h"
+#include "./RequestHandler.h"
+#include "./Router.h"
+#include "./SQLiteDB.h"
 
-#include <iostream>
-#include <string>
 
 int main()
 {
