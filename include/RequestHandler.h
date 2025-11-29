@@ -66,6 +66,16 @@ class RequestHandler {
          */
         int getRandomImage(const HttpRequest &req, const int &client_socket);
 
+
+        /**
+         * @brief Check if the users session token is valid. If valid return the user's data, otherwise null.
+         * 
+         * @param req The parsed request contents.
+         * @param client_socket The clients socket to send that response to.
+         * @return int 
+         */
+        int checkSessionToken(const HttpRequest &req, const int &client_socket);
+
 	private:
 		SQLiteDB &db_;
 

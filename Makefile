@@ -1,3 +1,13 @@
+
+# ======== 🌟 NOTE 🌟 ========
+# This Makefile is one I created without CMake, it is a good template for basic
+# projects without CMake, or another build system, justing using a Makefile
+# ============================
+
+# TODO After implementing CMake, update this Makefile to match.
+
+
+
 # Notes on Make commands
 # 	`:=` is the simple expansion, the variable is evaluated only once, at the very first occurrence.
 # 	`=` is the recursive expansion, the value of the variable is evaluated every time it's used. This has downsides!

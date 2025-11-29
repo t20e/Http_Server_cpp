@@ -305,3 +305,9 @@ int RequestHandler::getRandomImage(const HttpRequest &req, const int &client_soc
 	}
 	return 0;
 }
+
+
+int RequestHandler::checkSessionToken(const HttpRequest &req, const int &client_socket){
+
+
+}

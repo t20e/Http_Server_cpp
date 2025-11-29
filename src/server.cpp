@@ -35,7 +35,7 @@ int Server::launchServer()
 
 	// Define server address
 	s_address_.sin_family = AF_INET;
-	s_address_.sin_port = htons(config_.server_port);
+	s_address_.sin_port = htons(config_.SERVER_PORT);
 	s_address_.sin_addr.s_addr = INADDR_ANY; // INADDR_ANY accept connections on any IP
 
 	// Bind socket to address
@@ -53,7 +53,7 @@ int Server::Listen()
 		return -1;
 	}
 	cout << "\n"
-		 << std::string(16, '-') << std::format(" Listening on port: {} ", config_.server_port) << std::string(16, '-') << std::endl;
+		 << std::string(16, '-') << std::format(" Listening on port: {} ", config_.SERVER_PORT) << std::string(16, '-') << std::endl;
 
 	while (true) {
 		cout << "\nWaiting for a new connection...\n";

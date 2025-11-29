@@ -46,11 +46,11 @@ const Dashboard = () => {
 
     useEffect(() => {
         // Make sure the user is logged in else redirect to login
-        if (loggedUser === null) {
-            console.log("User not logged in redirecting...");
-            redirect("/");
-            return;
-        }
+        // if (loggedUser === null) { // TODO
+        //     console.log("User not logged in redirecting...");
+        //     redirect("/");
+        //     return;
+        // }
 
         if (usersList.length === 0) {
             console.log("Getting all users.");
@@ -69,7 +69,7 @@ const Dashboard = () => {
                     }
                 })
                 .catch((err) => {
-                    console.log(err); // TODO
+                    console.log(err);
                     alert("Could not get all other users.");
                 });
         }

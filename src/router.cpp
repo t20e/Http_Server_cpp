@@ -16,6 +16,10 @@ Router::Router(RequestHandler &handler)
 			"GET /api/getAllusers",
 			[this](const HttpRequest &req, const int &clientSocket) { this->handler_.getAllUser(req, clientSocket); },
 		},
+		{
+			"GET /api/checkUserSession",
+			[this](const HttpRequest &req, const int &clientSocket) { this->handler_.getAllUser(req, clientSocket); },
+		},
 
 		// POST
 		{
