@@ -1,6 +1,7 @@
 #pragma once
 #include <unordered_map>
 
+#include "config.h"
 #include "utils/http_data_types.h"
 #include "./RequestHandler.h"
 
@@ -11,7 +12,7 @@
 class Router {
 
 	public:
-		Router(RequestHandler &handler);
+		Router(RequestHandler &handler, Config &config);
 
 		/**
          * @brief Handles routes E.g: "Get /api/login" goes to its appropriate handler function.ss
@@ -19,10 +20,12 @@ class Router {
          * @param req The parsed request contents
          * @param clientSocket The id of the client socket to send a response back to.
          */
-		void route(const HttpRequest &req, const int clientSocket);
+		void route(HttpRequest &req, const int clientSocket);
+
 
 	private:
 		RequestHandler &handler_;
+		Config &config_;
 
 		std::unordered_map<std::string, HttpHandler> router_map_;
 };

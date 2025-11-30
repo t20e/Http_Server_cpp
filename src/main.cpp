@@ -3,9 +3,6 @@
 #include <sqlite3.h>
 #include <string>
 
-#include <jwt-cpp/jwt.h>
-#include <jwt-cpp/traits/kazuho-picojson/defaults.h>
-
 
 #include "config.h"
 #include "./RequestHandler.h"
@@ -15,14 +12,6 @@
 
 int main()
 {
-
-    std::string const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJpc3MiOiJhdXRoMCIsInNhbXBsZSI6InRlc3QifQ.lQm3N2bVlqt2-1L-FsOjtR6uE-L4E9zJutMWKIe1v1M";
-    auto decoded = jwt::decode(token);
-
-    for(auto& e : decoded.get_payload_json())
-        std::cout << e.first << " = " << e.second << '\n';
-    
-
 	std::cout << "\n\n\n";
 	static Config config;
 
@@ -32,8 +21,8 @@ int main()
 		return 1;
 	}
 
-	RequestHandler handler(db);
-	Router router(handler);
+	RequestHandler handler(db, config);
+	Router router(handler, config);
 
 	Server s = Server(config, router);
 	if (s.launchServer() == -1) {

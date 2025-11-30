@@ -5,8 +5,6 @@
 
 #include "utils/http_data_types.h"
 
-// using result = std::variant<std::vector<unsigned char>, std::string>;
-// using result = std::tuple<bool, std::string>;
 
 /**
  * @brief Type alias for a result from a function. 

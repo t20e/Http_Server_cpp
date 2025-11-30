@@ -1,6 +1,6 @@
-import { BrowserRouter, useNavigate, Switch, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './styles/global.css'
-import Landing_page from './components/regLogin/Landing_page'
+import LandingPage from './components/regLogin/LandingPage'
 import { UserProvider } from "./context/UserContext";
 import Dashboard from "./components/Dashboard";
 
@@ -9,7 +9,7 @@ const App = () => {
         <UserProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Landing_page />}></Route>
+                    <Route path="/" element={<LandingPage />}></Route>
                     <Route path="/Dashboard" element={<Dashboard />}></Route>
                 </Routes>
             </BrowserRouter>

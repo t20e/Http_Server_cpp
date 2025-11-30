@@ -1,14 +1,17 @@
 #include <cstddef>
+#include <ctime>
+#include <format>
 #include <iostream>
 #include <sstream>
 
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <string>
 #include <sys/socket.h>
 #include <unistd.h>
 
-#include "config.h"
 #include "Server.h"
+#include "config.h"
 
 using std::cout;
 
@@ -36,7 +39,9 @@ int Server::launchServer()
 	// Define server address
 	s_address_.sin_family = AF_INET;
 	s_address_.sin_port = htons(config_.SERVER_PORT);
-	s_address_.sin_addr.s_addr = INADDR_ANY; // INADDR_ANY accept connections on any IP
+
+	// INADDR_ANY accept connections on any IP
+	s_address_.sin_addr.s_addr = INADDR_ANY;
 
 	// Bind socket to address
 	if (bind(s_socket_, (struct sockaddr *) &s_address_, sizeof(s_address_)) < 0) {
@@ -58,11 +63,32 @@ int Server::Listen()
 	while (true) {
 		cout << "\nWaiting for a new connection...\n";
 
-		int clientSocket = accept(s_socket_, nullptr, nullptr);
+		// Add IP whitelisting
 
+		// Capture client IP
+		sockaddr_in clientAddr;
+		socklen_t clientAddrLen = sizeof(clientAddr);
+		int clientSocket = accept(s_socket_, (sockaddr *) &clientAddr, &clientAddrLen);
 		if (clientSocket < 0) {
 			cout << "Error accepting client socket\n";
 			continue;
+		}
+
+		// Convert client IP address to string
+		char clientIP_cstr[INET_ADDRSTRLEN];
+		inet_ntop(AF_INET, &clientAddr.sin_addr, clientIP_cstr, sizeof(clientIP_cstr));
+        std::string clientIP_str(clientIP_cstr);
+
+		// Check if IP is allowed
+		bool is_allowed = false;
+        if(config_.allowed_IPs.count(clientIP_str)){
+            is_allowed = true;
+        }
+
+		if (!is_allowed ) {
+			cout << "Rejected connection from " << clientIP_str << std::endl;
+			close(clientSocket);
+            continue;
 		}
 
 		cout << "\n------------------------------------\nClient Connected:\n";
@@ -111,25 +137,30 @@ void Server::process_request(const char *buffer, ssize_t bytesReceived, const in
 	std::istringstream header_stream(headers_only);
 	std::string line;
 
+	std::getline(header_stream, line); // Skip the first line which contains the (CRUD_Method, Path, http_version), since we already parse it above.
+
 	while (std::getline(header_stream, line)) { // read headers line by line
 		// HTTP lines end in \r\n, getline() consumes '\n', so we also need to remove the '\r'
 		if (!line.empty() && line.back() == '\r') {
 			line.pop_back();
 		}
+		if (line.empty())
+			continue;
 
-		if (line.rfind("Content-Length", 0) == 0) {
-			try {
-				// Extract the content length info
-				size_t colonPos = line.find(':');
-				if (colonPos != std::string::npos) {
-					req.content_length = std::stoi(line.substr(colonPos + 1));
-				}
-			} catch (const std::exception &e) {
-				std::cerr << "Content-Length parsing error" << e.what() << '\n';
-				// TODO add error handling
-			}
+		size_t colonPos = line.find(':');
+		if (colonPos != std::string::npos) {
+			// Get key:value pairs
+			std::string key = line.substr(0, colonPos);
+			std::string value = line.substr(colonPos + 1);
+
+			// trim spaces from values, e.g., " test" → "test"
+			size_t first = value.find_first_not_of(' ');
+			if (std::string::npos != first)
+				value = value.substr(first);
+
+			// Store in map
+			req.headers[key] = value;
 		}
-		// TODO also extract Content-type
 	}
 
 	// Extract the request Body from the initial buffer.
@@ -138,8 +169,7 @@ void Server::process_request(const char *buffer, ssize_t bytesReceived, const in
 		req.body = full_request.substr(body_start_pos);
 	}
 
-
-	// Edge case where the body might be large than the bufferSizeLimit
+	// Edge case where the body might be large than the bufferSizeLimit.
 	if (static_cast<int>(req.body.length()) < req.content_length) {
 		size_t remaining_bytes = req.content_length - req.body.length();
 
@@ -151,17 +181,15 @@ void Server::process_request(const char *buffer, ssize_t bytesReceived, const in
 			if (body_chunk_recv < 0) {
 				std::cerr << std::format("Error occurred while reading large body.\n", bufferSizeLimit_); //TODO add error handling
 				break;
-			} else if (body_chunk_recv == 0) {
-				std::cerr << "Client disconnected unexpectedly mid-body transfer.\n"; //TODO add error handling
-				break;
 			}
+			std::cerr << "Client disconnected unexpectedly mid-body transfer.\n"; //TODO Add error handling
 			// Append the received chunk
 			req.body.append(body_chunk, body_chunk_recv);
 			remaining_bytes -= body_chunk_recv; //update the remaining counter
 		}
 	}
 
-	cout << std::format("Extracted Method: {}, Extracted path: {}, Content-Length: {}\n", req.method, req.path, req.content_length);
+	cout << std::format("Extracted Method: {}, Extracted path: {}, Content-Length: {}\n\n", req.method, req.path, req.content_length);
 
 	if (req.method == "POST" && req.body.length() > 0) {
 		cout << "Request Body Data (UrlEncoded string): " << req.body << "\n";

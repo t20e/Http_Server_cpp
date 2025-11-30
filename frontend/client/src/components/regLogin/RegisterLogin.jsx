@@ -39,7 +39,8 @@ const RegisterLogin = () => {
                     userID: res.data.userID,
                     username: res.data.username,
                 };
-                setLoggedUser(userData); // this triggers the re-render and useEffect above will run
+
+                setLoggedUser(userData); // this triggers the re-render and useEffect above will run, auto redirecting to /dashboard
             })
             .catch((err) => {
                 console.log(err.response.data["Error"]);

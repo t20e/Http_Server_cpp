@@ -13,9 +13,9 @@ export const UserProvider = (props) => {
         const checkSessionToken = async () => {
             try {
                 const res = await axios.get(
-                    "http://localhost:8080/api/checkUserSession",
+                    "http://localhost:8080/api/getLoggedUser",
                     {
-                        withCredentials: true, // send cookies
+                        withCredentials: true, // Send cookie
                     }
                 );
 
@@ -28,8 +28,14 @@ export const UserProvider = (props) => {
                     setLoggedUser(userData); // this triggers the re-render and useEffect above will run
                 }
             } catch (err) {
-                console.log("Session token cookie not valid");
-                setLoggedUser(null);
+                if (err.status === 403) {
+                    alert(
+                        "Origin is not allowed, please use: http://localhost:3000/"
+                    );
+                } else if (err.status === 401) {
+                    console.log("Session token cookie not valid. Err: ", err);
+                    setLoggedUser(null);
+                }
             } finally {
                 setIsLoading(false);
             }
@@ -38,13 +44,19 @@ export const UserProvider = (props) => {
     }, []);
 
     const userValue = useMemo(
-        () => ({ loggedUser, setLoggedUser }),
-        [loggedUser, setLoggedUser]
+        () => ({ loggedUser, setLoggedUser, isLoading }),
+        [loggedUser, setLoggedUser, isLoading]
     );
 
     return (
         <UserContext.Provider value={userValue}>
-            {!isLoading && props.children}
+            {isLoading ? (
+                <div className="text-center py-5">
+                    <p>Loading session...</p>
+                </div>
+            ) : (
+                props.children
+            )}
         </UserContext.Provider>
     );
 };

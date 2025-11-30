@@ -1,4 +1,5 @@
 #include <bcrypt.h>
+#include <chrono>
 #include <exception>
 #include <expected>
 #include <filesystem>
@@ -6,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <optional>
 #include <random>
 #include <regex>
 #include <set>
@@ -14,8 +16,12 @@
 #include <unistd.h>
 #include <vector>
 
+#include <jwt-cpp/jwt.h>
+#include <jwt-cpp/traits/kazuho-picojson/defaults.h>
+
 
 #include "./RequestHandler.h"
+#include "config.h"
 #include "utils/JsonResponse.h"
 #include "utils/error_handling_template.h"
 #include "utils/http_data_types.h"
@@ -23,12 +29,13 @@
 
 using std::cout;
 
-RequestHandler::RequestHandler(SQLiteDB &db)
-	: db_(db) {}
+RequestHandler::RequestHandler(SQLiteDB &db, Config &config)
+	: db_(db), config_(config) {}
 
 
 int RequestHandler::login(const HttpRequest &req, int clientSocket)
 {
+    std::cout << "Logging in user...\n";
 	std::unordered_map<std::string, std::string> formData = parseURLEncodedBody(req.body);
 	std::string inputUsername = formData["username"];
 	std::string inputPassword = formData["password"];
@@ -40,7 +47,7 @@ int RequestHandler::login(const HttpRequest &req, int clientSocket)
 
 	if (!dbResult.has_value()) {
 		json.add("Error", dbResult.error());
-		std::string res = createResponse(json.dump(), 404);
+		std::string res = createResponse(json.dump(), 404, req.headers.at("Origin"));
 		sendResponse(res, clientSocket);
 		return 1;
 	}
@@ -51,21 +58,32 @@ int RequestHandler::login(const HttpRequest &req, int clientSocket)
 	if (!bcrypt::validatePassword(inputPassword, dbResult->passwordHash)) {
 		cout << "User's input password doesn't match the hashedPassword.\n";
 		json.add("Error", "Username or password is incorrect!");
-		std::string res = createResponse(json.dump(), 401);
+		std::string res = createResponse(json.dump(), 401, req.headers.at("Origin"));
 		sendResponse(res, clientSocket);
 		return 1;
 	}
+
+	// Create JWT Token
+	std::string jwtToken = createJwtSessionToken(dbResult->userId);
+
 	// Send the back the users data
 	json.add("username", dbResult->username);
 	json.add("userID", dbResult->userId);
 
-	std::string res = createResponse(json.dump(), 200);
-	sendResponse(res, clientSocket);
+	sendResponse(
+		createResponse(
+			json.dump(),
+			200,
+			req.headers.at("Origin"),
+			"application/json",
+			jwtToken),
+		clientSocket);
 	return 0;
 }
 
 int RequestHandler::registerUser(const HttpRequest &req, int clientSocket)
 {
+    std::cout << "Registering user...\n";
 	std::unordered_map<std::string, std::string> formData = parseURLEncodedBody(req.body);
 	std::string username = formData["username"];
 	std::string password = formData["password"];
@@ -75,21 +93,21 @@ int RequestHandler::registerUser(const HttpRequest &req, int clientSocket)
 	// Validate form
 	if (username.length() == 0 || password.length() == 0) {
 		json.add("Error", "Missing username or password.");
-		std::string res = createResponse(json.dump(), 400);
+		std::string res = createResponse(json.dump(), 400, req.headers.at("Origin"));
 		sendResponse(res, clientSocket);
 		return 1;
 	}
 
 	if (username.length() < 3 || username.length() > 32) {
 		json.add("Error", "Username length must be between 3 and 32 characters!.");
-		std::string res = createResponse(json.dump(), 400);
+		std::string res = createResponse(json.dump(), 400, req.headers.at("Origin"));
 		sendResponse(res, clientSocket);
 		return 1;
 	}
 
 	if (password.length() < 5 || password.length() > 32) {
 		json.add("Error", "password length must be between 5 and 32 characters!.");
-		std::string res = createResponse(json.dump(), 400);
+		std::string res = createResponse(json.dump(), 400, req.headers.at("Origin"));
 		sendResponse(res, clientSocket);
 		return 1;
 	}
@@ -99,7 +117,7 @@ int RequestHandler::registerUser(const HttpRequest &req, int clientSocket)
 	if (!std::regex_match(username, letters_only_regex)) {
 		cout << "Username contains non-letters! Username: " << username << std::endl;
 		json.add("Error", "Username must be letters only with no white spaces!.");
-		std::string res = createResponse(json.dump(), 400);
+		std::string res = createResponse(json.dump(), 400, req.headers.at("Origin"));
 		sendResponse(res, clientSocket);
 		return 1;
 	}
@@ -113,46 +131,103 @@ int RequestHandler::registerUser(const HttpRequest &req, int clientSocket)
 	if (!dbResult.has_value()) {
 		json.add("Error", dbResult.error());
 		int statusCode = (dbResult.error() == "Username is taken!") ? 409 : 500;
-		std::string res = createResponse(json.dump(), statusCode);
+		std::string res = createResponse(json.dump(), statusCode, req.headers.at("Origin"));
 		sendResponse(res, clientSocket);
 		return 1;
 	}
+
+	// Create JWT Token
+	std::string jwtToken = createJwtSessionToken(dbResult->userId);
 
 	// Send the back the users data
 	json.add("username", username);
 	json.add("userID", dbResult.value().userId);
 
-	std::string res = createResponse(json.dump(), 201);
-	sendResponse(res, clientSocket);
+	sendResponse(
+		createResponse(
+			json.dump(),
+			201,
+			req.headers.at("Origin"),
+			"application/json",
+			jwtToken),
+		clientSocket);
 	return 0;
 }
 
-void RequestHandler::send404(const int &clientSocket)
+void RequestHandler::send404(const HttpRequest &req, const int &clientSocket)
 {
 	JsonResponse json;
 	json.add("Error", "Not Found!");
 
-	std::string res = createResponse(json.dump(), 404);
+	std::string res = createResponse(json.dump(), 404, req.headers.at("Origin"));
 	sendResponse(res, clientSocket);
 }
 
-std::string RequestHandler::createResponse(const std::string &body, int status, const std::string &content_type)
+void RequestHandler::sendForbidden(const HttpRequest &req, const int &clientSocket)
+{
+	JsonResponse json;
+	json.add("Error", "Forbidden!");
+
+	std::string origin = "";
+	if (req.headers.count("Origin")) {
+		origin = req.headers.at("Origin");
+	}
+
+	std::string res = createResponse(json.dump(), 403, origin);
+	sendResponse(res, clientSocket);
+}
+
+
+std::string RequestHandler::createResponse(const std::string &body, int status, const std::string &origin, const std::string &content_type, const std::string &jwt_token, const bool &delJwtToken)
 {
 	// Example json string body: "{\"name\": \"john\"}"
+
 	std::string code_phrase = getCodePhrase(status);
+	std::string jwt_token_cookie = "";
+
+	// In production only allow cookies when using HTTPS for more security.
+	const bool use_secure_cookie = config_.DEV_MODE ? false : true;
+
+	if (!jwt_token.empty()) {
+		// Note: Javascript won't be able to read this, which is more secure! The frontend browser will handle this cookie automatically!
+		jwt_token_cookie = std::format(
+			"Set-Cookie: session_token={}; HttpOnly; Path=/; Max-Age=43200; "
+			// JWT token last 3600*12=43200 = one day
+			"SameSite=Lax;{}"
+			"\r\n",
+			jwt_token,
+			use_secure_cookie ? " Secure;" : "");
+	}
+
+	if (delJwtToken) {
+		jwt_token_cookie = std::format(
+			"Set-Cookie: session_token=deleted; HttpOnly; Path=/; Max-Age=0; "
+			"SameSite=Lax;{}"
+			"\r\n",
+			use_secure_cookie ? " Secure;" : "");
+	}
+
+
 	return std::format(
 		"HTTP/1.1 {} {}\r\n"
+		"{}" // Insert jwt token cookie if preset
 		"Content-Type: {}\r\n"
 		"Content-Length: {}\r\n"
 		// ----- Headers
-		"Access-Control-Allow-Origin: http://localhost:3000\r\n" // Connection to frontend
+		"Access-Control-Allow-Origin: {}\r\n" // Example: http://localhost:3000
 		"Access-Control-Allow-Credentials: true\r\n" // allow cookies
 		"Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
 		"Access-Control-Allow-Headers: Content-Type\r\n" // allow json content
 		// -----
 		"\r\n"
 		"{}",
-		status, code_phrase, content_type, body.length(), body);
+		status,
+		code_phrase,
+		jwt_token_cookie,
+		content_type,
+		body.length(),
+		origin,
+		body);
 }
 
 int RequestHandler::sendResponse(std::string res, const int &clientSocket)
@@ -174,12 +249,13 @@ int RequestHandler::sendResponse(std::string res, const int &clientSocket)
 int RequestHandler::handlePreflight(const HttpRequest &req, const int &clientSocket)
 {
 	if (req.method == "OPTIONS") {
-		std::string res = "HTTP/1.1 200 OK\r\n"
-						  "Access-Control-Allow-Origin: http://localhost:3000\r\n"
-						  "Access-Control-Allow-Credentials: true\r\n"
-						  "Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
-						  "Access-Control-Allow-Headers: Content-Type\r\n"
-						  "Content-Length: 0\r\n";
+		std::string res = std::format("HTTP/1.1 200 OK\r\n"
+									  "Access-Control-Allow-Origin: {}\r\n"
+									  "Access-Control-Allow-Credentials: true\r\n"
+									  "Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
+									  "Access-Control-Allow-Headers: Content-Type\r\n"
+									  "Content-Length: 0\r\n",
+									  req.headers.at("Origin"));
 		send(clientSocket, res.c_str(), res.length(), 0);
 		close(clientSocket);
 	}
@@ -197,13 +273,13 @@ int RequestHandler::getAllUser(const HttpRequest &req, const int &clientSocket)
 	// check for database error
 	if (!db_result.has_value()) {
 		response.add("Error", db_result.error());
-		sendResponse(createResponse(response.dump(), 404), clientSocket);
+		sendResponse(createResponse(response.dump(), 404, req.headers.at("Origin")), clientSocket);
 		return 1;
 	}
 
 	std::vector<JsonResponse> usersVector;
 
-	// Add each user to the Json
+	// Add each user to the JSON
 	for (User user: *db_result) {
 		JsonResponse userObj;
 		// cout << std::format("User: {}\n", user.username);
@@ -213,9 +289,9 @@ int RequestHandler::getAllUser(const HttpRequest &req, const int &clientSocket)
 	}
 
 	response.add("users", usersVector);
-	cout << "Response: " << response.dump() << std::endl;
+	// cout << "Response: " << response.dump() << std::endl;
 
-	sendResponse(createResponse(response.dump(), 200), clientSocket);
+	sendResponse(createResponse(response.dump(), 200, req.headers.at("Origin")), clientSocket);
 	return 0;
 }
 
@@ -242,7 +318,7 @@ int RequestHandler::getRandomImage(const HttpRequest &req, const int &client_soc
 		// Handle case where no images are found.
 		if (found_images.empty()) {
 			std::cerr << std::format("No images found in: {}\n", images_directory_path);
-			sendResponse(createResponse("No images found", 4904), client_socket);
+			sendResponse(createResponse("No images found", 500, req.headers.at("Origin")), client_socket);
 			return 1;
 		}
 
@@ -258,7 +334,7 @@ int RequestHandler::getRandomImage(const HttpRequest &req, const int &client_soc
 		std::ifstream file(selected_file, std::ios::binary);
 
 		if (!file.is_open()) {
-			sendResponse(createResponse("Server Error: could not retrieve image", 500), client_socket);
+			sendResponse(createResponse("Server Error: could not retrieve image", 500, req.headers.at("Origin")), client_socket);
 			return 1;
 			;
 		}
@@ -279,7 +355,7 @@ int RequestHandler::getRandomImage(const HttpRequest &req, const int &client_soc
 			"Content-Type: {}\r\n"
 			"Content-Length: {}\r\n"
 			// ----- Headers
-			"Access-Control-Allow-Origin: http://localhost:3000\r\n" // Connection to frontend
+			"Access-Control-Allow-Origin: {}\r\n" // Connection to frontend
 			"Access-Control-Allow-Credentials: true\r\n" // allow cookies
 			"Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
 			"Access-Control-Allow-Headers: Content-Type\r\n" // allow json content
@@ -287,7 +363,10 @@ int RequestHandler::getRandomImage(const HttpRequest &req, const int &client_soc
 			"Connection: close\r\n"
 			"\r\n",
 			content_type,
-			image_buffer.size());
+			image_buffer.size(),
+			req.headers.at("Origin")
+
+		);
 
 		// Respond
 		// Send the preflight
@@ -298,16 +377,147 @@ int RequestHandler::getRandomImage(const HttpRequest &req, const int &client_soc
 
 	} catch (const std::filesystem::filesystem_error &err) {
 		std::cerr << std::format("Unknown error: {}\n", err.what());
-		sendResponse(createResponse("Server error: getting a random image.", 500), client_socket);
+		sendResponse(createResponse("Server error: getting a random image.", 500, req.headers.at("Origin")), client_socket);
 	} catch (const std::exception &err) {
 		std::cerr << std::format("Unknown error: {}\n", err.what());
-		sendResponse(createResponse("Unknown Server error: getting a random image.", 500), client_socket);
+		sendResponse(createResponse("Unknown Server error: getting a random image.", 500, req.headers.at("Origin")), client_socket);
 	}
 	return 0;
 }
 
 
-int RequestHandler::checkSessionToken(const HttpRequest &req, const int &client_socket){
+std::string RequestHandler::createJwtSessionToken(const int &user_id)
+{
+	const jwt::date token_valid_for = std::chrono::system_clock::now() + std::chrono::seconds{3600 * 24}; // valid for 24 hours
 
+	std::string token = jwt::create()
+							.set_type("JWS")
+							.set_issuer("auth0")
+							.set_subject(std::to_string(user_id))
+							.set_payload_claim("role", jwt::claim(std::string("user")))
+							.set_issued_at(std::chrono::system_clock::now())
+							.set_expires_at(token_valid_for)
+							.sign(jwt::algorithm::hs256{config_.JWT_SECRET_KEY});
+	std::cout << "Created new token: " << token << std::endl;
 
+	return token;
+}
+
+int RequestHandler::logout(const HttpRequest &req, const int &client_socket)
+{
+	cout << "Logging the user out..\n";
+	sendResponse(createResponse("", 200, req.headers.at("Origin"), "application/json", "", true), client_socket);
+	return 0;
+}
+
+std::string RequestHandler::extractJwtToken(std::string cookie)
+{
+	size_t pos = cookie.find("session_token=");
+
+	if (pos != std::string::npos) {
+		pos += 14; // remove "session_token="
+		size_t end = cookie.find(";", pos);
+		std::string token = cookie.substr(pos, end - pos);
+		std::cout << std::format("Token: '{}'\n", token);
+		return token;
+	}
+	return "";
+}
+
+int RequestHandler::getLoggedUser(const HttpRequest &req, const int &client_socket)
+{
+	cout << "Checking User session token...\n";
+	std::string token = "";
+
+	if (req.headers.count("Cookie")) {
+		std::string cookie = req.headers.at("Cookie");
+		token = extractJwtToken(cookie);
+	}
+
+	JsonResponse json;
+
+	// Verify
+	if (token.empty()) {
+		std::cout << "No session token provided\n";
+		json.add("message", "No session token provided");
+		sendResponse(createResponse(json.dump(), 401, req.headers.at("Origin")), client_socket);
+		return 1;
+	}
+
+	auto validateTokenRes = verifyJwtSessionToken(token);
+
+	if (validateTokenRes.has_value()) {
+		int userId = *validateTokenRes;
+
+		DbResult user = db_.getUser(userId);
+
+		if (user.has_value()) {
+			// Send the back the users data
+			json.add("username", user->username);
+			json.add("userID", user->userId);
+
+			sendResponse(
+				createResponse(
+					json.dump(),
+					200,
+					req.headers.at("Origin")),
+				client_socket);
+
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
+	// Invalid
+	json.add("message", "Session cookie is Invalid");
+	sendResponse(createResponse(json.dump(), 401, req.headers.at("Origin")), client_socket);
+	return 1;
+}
+
+std::optional<int> RequestHandler::verifyJwtSessionToken(std::string &token)
+{
+	try {
+		auto decoded_token = jwt::decode(token);
+
+		auto verifier = jwt::verify()
+							.with_issuer("auth0")
+							.allow_algorithm(jwt::algorithm::hs256{config_.JWT_SECRET_KEY});
+
+		verifier.verify(decoded_token);
+
+		std::cout << "JWT Token is valid!\n";
+
+		std::cout << std::format("Role claim: {}, User's ID: {}\n", decoded_token.get_payload_claim("role").as_string(), decoded_token.get_subject());
+		return std::stoi(decoded_token.get_subject());
+
+	} catch (const std::exception &e) {
+		std::cerr << std::format("JWT token is Invalid: Error: {}\n", e.what());
+		return std::nullopt;
+	}
+}
+
+bool RequestHandler::authenticateSessionToken(const HttpRequest &req)
+{
+	if (req.headers.count("Cookie")) {
+		std::string cookie = req.headers.at("Cookie");
+		std::string token = extractJwtToken(cookie);
+
+		if (token.empty()) {
+			std::cout << "No session token provided\n";
+			return false;
+		}
+
+		auto validateTokenRes = verifyJwtSessionToken(token);
+		if (validateTokenRes.has_value()) {
+			cout << "Session token is valid\n";
+			return true;
+		} else {
+			cout << "Session token is inValid\n";
+			return false;
+		}
+	} else {
+		cout << "No session token available\n";
+		return false;
+	}
 }

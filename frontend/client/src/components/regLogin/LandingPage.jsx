@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import "../../styles/landingPage.css";
 import RegisterLogin from "./RegisterLogin";
 
-const Landing_page = () => {
+const LandingPage = () => {
     const mainDisplayRef = useRef(null);
 
     return (
@@ -16,4 +16,4 @@ const Landing_page = () => {
     );
 };
 
-export default Landing_page;
+export default LandingPage;

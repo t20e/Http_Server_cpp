@@ -161,7 +161,7 @@ DbResult SQLiteDB::getUser(int userId)
 	}
 
 	sqlite3_finalize(stmt);
-    std::cout << "couldn't not fetch user from their id: " << userId << std::endl;
+    std::cout << "Couldn't fetch user from their id: " << userId << std::endl;
 	return std::unexpected("User not found");
 }
 
@@ -185,7 +185,7 @@ DbResult SQLiteDB::getUser(std::string username)
 	}
 
 	sqlite3_finalize(stmt);
-	std::cout << "couldn't not fetch user from their username: " << username << std::endl;
+	std::cout << "Couldn't fetch user from their username: " << username << std::endl;
 	return std::unexpected("User not found");
 }
 
