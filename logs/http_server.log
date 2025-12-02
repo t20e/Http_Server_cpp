@@ -1,0 +1,175 @@
+
+
+
+[2025-12-01 23:00:58] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-01 23:00:58] INFO: Opened Database.
+[2025-12-01 23:00:58] INFO: Schemas initialized.
+[2025-12-01 23:00:58] INFO: Added default users to the database.
+[2025-12-01 23:00:58] INFO: Launching the HTTP server...
+
+
+[2025-12-01 23:00:58] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-01 23:00:58] INFO: Waiting for a new connection...
+
+
+
+[2025-12-01 23:01:14] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-01 23:01:14] INFO: Opened Database.
+[2025-12-01 23:01:14] INFO: Schemas initialized.
+[2025-12-01 23:01:14] INFO: Added default users to the database.
+[2025-12-01 23:01:14] INFO: Launching the HTTP server...
+
+
+[2025-12-01 23:01:14] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-01 23:01:14] INFO: Waiting for a new connection...
+[2025-12-01 23:01:33] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:01:33] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-01 23:01:33] DEBUG: Request Body Data (UrlEncoded string): username=asdasadsdadsdsdasdas3&password=
+[2025-12-01 23:01:33] DEBUG: Origin is allowed, Origin: Postman app.
+[2025-12-01 23:01:33] INFO: Registering user...
+
+
+[2025-12-01 23:01:33] INFO: Waiting for a new connection...
+[2025-12-01 23:01:43] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:01:43] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:01:43] DEBUG: Origin is allowed, Origin: Postman app.
+[2025-12-01 23:01:43] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:01:43] DEBUG: Random Image Path: ./server_images/cat-5.png
+
+
+[2025-12-01 23:01:43] INFO: Waiting for a new connection...
+[2025-12-01 23:01:51] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:01:51] INFO: Extracted Method: POST, Extracted path: /api/login, Content-Length: 0
+[2025-12-01 23:01:51] DEBUG: Request Body Data (UrlEncoded string): username=asdasadsdadsdsdasdas&password=123456s
+[2025-12-01 23:01:51] DEBUG: Origin is allowed, Origin: Postman app.
+[2025-12-01 23:01:51] INFO: Attempting to login a user, user's IP: 127.0.0.1, username: asdasadsdadsdsdasdas
+[2025-12-01 23:01:51] WARNING: Failed login attempt from IP: 127.0.0.1 | For username: asdasadsdadsdsdasdas | User's input password doesn't match the hashedPassword.
+
+
+[2025-12-01 23:01:51] INFO: Waiting for a new connection...
+[2025-12-01 23:01:58] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:01:58] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-01 23:01:58] INFO: Checking User session token, IP: 127.0.0.1
+[2025-12-01 23:01:58] WARNING: No session token provided, user's IP: 127.0.0.1
+
+
+[2025-12-01 23:01:58] INFO: Waiting for a new connection...
+[2025-12-01 23:01:58] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:01:58] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-01 23:01:58] INFO: Checking User session token, IP: 127.0.0.1
+[2025-12-01 23:01:58] WARNING: No session token provided, user's IP: 127.0.0.1
+
+
+[2025-12-01 23:01:58] INFO: Waiting for a new connection...
+[2025-12-01 23:02:00] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:00] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-01 23:02:00] DEBUG: Request Body Data (UrlEncoded string): username=asdads&password=asdasdas
+[2025-12-01 23:02:00] INFO: Registering user...
+[2025-12-01 23:02:00] INFO: Successfully added a user, username: 'asdads'
+[2025-12-01 23:02:00] INFO: Created new token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE3NjQ3MzQ1MjAsImlhdCI6MTc2NDY0ODEyMCwiaXNzIjoiYXV0aDAiLCJyb2xlIjoidXNlciIsInN1YiI6IjE1In0.mJcujCaZEblcqQegGU4csLOhhyPonb7UuOjMdXvxRGU
+
+
+[2025-12-01 23:02:00] INFO: Waiting for a new connection...
+[2025-12-01 23:02:00] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:00] INFO: Extracted Method: GET, Extracted path: /api/getAllusers, Content-Length: 0
+[2025-12-01 23:02:00] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:00] INFO: Getting all users for IP: 127.0.0.1
+
+
+[2025-12-01 23:02:00] INFO: Waiting for a new connection...
+[2025-12-01 23:02:00] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:00] INFO: Extracted Method: GET, Extracted path: /api/getAllusers, Content-Length: 0
+[2025-12-01 23:02:00] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:00] INFO: Getting all users for IP: 127.0.0.1
+
+
+[2025-12-01 23:02:00] INFO: Waiting for a new connection...
+[2025-12-01 23:02:13] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:13] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:13] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:13] DEBUG: Random Image Path: ./server_images/cat-4.png
+
+
+[2025-12-01 23:02:13] INFO: Waiting for a new connection...
+[2025-12-01 23:02:15] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:15] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:15] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:15] DEBUG: Random Image Path: ./server_images/cat-2.png
+
+
+[2025-12-01 23:02:15] INFO: Waiting for a new connection...
+[2025-12-01 23:02:17] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:17] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:17] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:17] DEBUG: Random Image Path: ./server_images/cat-5.png
+
+
+[2025-12-01 23:02:17] INFO: Waiting for a new connection...
+[2025-12-01 23:02:17] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:17] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:17] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:17] DEBUG: Random Image Path: ./server_images/cat-2.png
+
+
+[2025-12-01 23:02:17] INFO: Waiting for a new connection...
+[2025-12-01 23:02:18] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:18] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:18] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:18] DEBUG: Random Image Path: ./server_images/cat-1.png
+
+
+[2025-12-01 23:02:18] INFO: Waiting for a new connection...
+[2025-12-01 23:02:18] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:18] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:18] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:18] DEBUG: Random Image Path: ./server_images/cat-4.png
+
+
+[2025-12-01 23:02:18] INFO: Waiting for a new connection...
+[2025-12-01 23:02:19] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:19] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:19] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:19] DEBUG: Random Image Path: ./server_images/cat-3.png
+
+
+[2025-12-01 23:02:19] INFO: Waiting for a new connection...
+[2025-12-01 23:02:19] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:19] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:19] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:19] DEBUG: Random Image Path: ./server_images/cat-3.png
+
+
+[2025-12-01 23:02:19] INFO: Waiting for a new connection...
+[2025-12-01 23:02:19] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:19] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:19] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:19] DEBUG: Random Image Path: ./server_images/cat-4.png
+
+
+[2025-12-01 23:02:19] INFO: Waiting for a new connection...
+[2025-12-01 23:02:19] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:19] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-01 23:02:19] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:19] DEBUG: Random Image Path: ./server_images/cat-1.png
+
+
+[2025-12-01 23:02:19] INFO: Waiting for a new connection...
+[2025-12-01 23:02:23] INFO: Client Connected, IP: 127.0.0.1
+[2025-12-01 23:02:23] INFO: Extracted Method: GET, Extracted path: /api/logout, Content-Length: 0
+[2025-12-01 23:02:23] INFO: User's IP: 127.0.0.1 | Session token is valid.
+[2025-12-01 23:02:23] INFO: Logging user out. User's IP: 127.0.0.1
+
+
+[2025-12-01 23:02:23] INFO: Waiting for a new connection...

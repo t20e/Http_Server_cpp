@@ -3,20 +3,22 @@
 #include <sqlite3.h>
 #include <string>
 
-#include "utils/error_handling_template.h"
+#include "utils/result_types.h"
+
+
 
 /**
  * @brief SQLite class that manages the projects databases.
  * @param db_name The name of the database.
  */
-class SQLiteDB {
+class DB_controller {
 	public:
-		SQLiteDB(const std::string &db_name);
-		~SQLiteDB(); //Destructor closes the Database.
+		DB_controller(const std::string &db_name);
+		~DB_controller(); //Destructor closes the Database.
 
 		// Force this class to NOT be copyable.
-		SQLiteDB(const SQLiteDB &) = delete;
-		SQLiteDB operator=(const SQLiteDB &) = delete;
+		DB_controller(const DB_controller &) = delete;
+		DB_controller operator=(const DB_controller &) = delete;
 
 		int createDatabase();
 

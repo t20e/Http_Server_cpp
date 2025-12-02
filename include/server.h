@@ -39,7 +39,8 @@ class Server {
          * 
          * @param buffer Data from client.
          * @param bytesReceived The total size of the request data.
-         * @param clientSocket The id of the client socket to send a response back to.
+         * @param clientSocket The ID of the client's socket to send a response back to.
+         * @param clientIP_str The client's IP address, that's captured when the client connection is accepted.
          */
-		void process_request(const char *buffer, ssize_t bytesReceived, const int &clientSocket);
+		void process_request(const char *buffer, ssize_t bytesReceived, const int &clientSocket, std::string clientIP_str);
 };

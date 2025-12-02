@@ -1,7 +1,7 @@
 #pragma once
 
-#include <unordered_map>
 #include <sstream>
+#include <unordered_map>
 
 /**
  * @brief Helper function to decode strings, e.g., 'John%20Doe' converts into 'John Doe'. '%20' represents a white-space.
@@ -13,8 +13,10 @@ inline std::string urlDecode(const std::string &encodedStr)
 {
 	std::string s;
 	char ch;
-	int i, ii;
-	for (i = 0; i < encodedStr.length(); i++) {
+	// std::string::size_type i;
+	int ii;
+
+	for (std::string::size_type i = 0; i < encodedStr.length(); i++) {
 		if (encodedStr[i] == '%') { // example -> 'John%20Doe'
 			if (i + 2 < encodedStr.length()) {
 				std::istringstream hex_stream(encodedStr.substr(i + 1, 2));
@@ -54,8 +56,8 @@ inline std::unordered_map<std::string, std::string> parseURLEncodedBody(const st
 
 			std::string value = pair.substr(equal_pos + 1);
 			std::string decodedValue = urlDecode(value);
-            
-            req_data[decodedKey] = decodedValue;
+
+			req_data[decodedKey] = decodedValue;
 		}
 	}
 	return req_data;

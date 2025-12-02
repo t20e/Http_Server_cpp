@@ -12,18 +12,20 @@
 
 #include "Server.h"
 #include "config.h"
+#include "utils/Logger.h"
 
-using std::cout;
 
 Server::Server(Config &config, Router &router)
 	: config_(config), router_(router) {}
 
 int Server::launchServer()
 {
+	Logger::getInstance().log(LogLevel::INFO, "Launching the HTTP server...");
+
 	// Create a socket
 	s_socket_ = socket(AF_INET, SOCK_STREAM, 0);
 	if (s_socket_ == -1) {
-		std::cerr << "Error creating Socket.\n";
+		Logger::getInstance().log(LogLevel::CRITICAL, "Error creating Socket");
 		return -1;
 	}
 
@@ -31,7 +33,7 @@ int Server::launchServer()
 		// Set SO_REUSEADDR to allow immediate resuse of the port. Only when developing.
 		int opt = 1;
 		if (setsockopt(s_socket_, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
-			std::cerr << "Set socket option failed\n";
+			Logger::getInstance().log(LogLevel::CRITICAL, "Set socket option failed");
 			return -1;
 		}
 	}
@@ -45,7 +47,7 @@ int Server::launchServer()
 
 	// Bind socket to address
 	if (bind(s_socket_, (struct sockaddr *) &s_address_, sizeof(s_address_)) < 0) {
-		std::cerr << "Error binding the server socket to the address.\n";
+		Logger::getInstance().log(LogLevel::CRITICAL, "Error binding the server socket to the address.");
 		return -1;
 	};
 	return 0;
@@ -54,55 +56,53 @@ int Server::launchServer()
 int Server::Listen()
 {
 	if (listen(s_socket_, 5) < 0) {
-		cout << "Failed to start listening for incoming connections\n";
+		Logger::getInstance().log(LogLevel::CRITICAL, "Failed to start listening for incoming connections.");
 		return -1;
 	}
-	cout << "\n"
-		 << std::string(16, '-') << std::format(" Listening on port: {} ", config_.SERVER_PORT) << std::string(16, '-') << std::endl;
+	Logger::getInstance().log(LogLevel::INFO, std::format("{} Server is listening on port: {} {}\n\n", std::string(16, '-'), config_.SERVER_PORT, std::string(16, '-')), 2);
 
 	while (true) {
-		cout << "\nWaiting for a new connection...\n";
-
-		// Add IP whitelisting
+		Logger::getInstance().log(LogLevel::INFO, "Waiting for a new connection...", 2);
 
 		// Capture client IP
 		sockaddr_in clientAddr;
 		socklen_t clientAddrLen = sizeof(clientAddr);
 		int clientSocket = accept(s_socket_, (sockaddr *) &clientAddr, &clientAddrLen);
 		if (clientSocket < 0) {
-			cout << "Error accepting client socket\n";
+			Logger::getInstance().log(LogLevel::ERROR, "Error accepting client socket.");
 			continue;
 		}
 
 		// Convert client IP address to string
 		char clientIP_cstr[INET_ADDRSTRLEN];
 		inet_ntop(AF_INET, &clientAddr.sin_addr, clientIP_cstr, sizeof(clientIP_cstr));
-        std::string clientIP_str(clientIP_cstr);
+		std::string clientIP_str(clientIP_cstr);
 
-		// Check if IP is allowed
+		// Add IP whitelisting
 		bool is_allowed = false;
-        if(config_.allowed_IPs.count(clientIP_str)){
-            is_allowed = true;
-        }
-
-		if (!is_allowed ) {
-			cout << "Rejected connection from " << clientIP_str << std::endl;
-			close(clientSocket);
-            continue;
+		// Check if IP is allowed
+		if (config_.allowed_IPs.count(clientIP_str)) {
+			is_allowed = true;
 		}
 
-		cout << "\n------------------------------------\nClient Connected:\n";
+		if (!is_allowed) {
+			Logger::getInstance().log(LogLevel::WARNING, std::format("Rejected connection from IP: {}", clientIP_str));
+			close(clientSocket);
+			continue;
+		}
+
+		Logger::getInstance().log(LogLevel::INFO, std::format("Client Connected, IP: {}", clientIP_str));
 
 		// Receive date from a client
 		char buffer[bufferSizeLimit_] = {0};
 		ssize_t bytesReceived = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
 
 		if (bytesReceived > 0) {
-			process_request(buffer, bytesReceived, clientSocket);
+			process_request(buffer, bytesReceived, clientSocket, clientIP_str);
 		} else if (bytesReceived == 0) {
-			cout << "Client disconnected\n.";
+			Logger::getInstance().log(LogLevel::WARNING, std::format("Client disconnected abruptly. IP: {}", clientIP_str));
 		} else {
-			cout << "recv() Failed";
+			Logger::getInstance().log(LogLevel::ERROR, "recv() call Failed");
 		}
 
 		close(clientSocket); // Close the client's socket when finished communicating
@@ -110,10 +110,12 @@ int Server::Listen()
 }
 
 
-void Server::process_request(const char *buffer, ssize_t bytesReceived, const int &clientSocket)
+void Server::process_request(const char *buffer, ssize_t bytesReceived, const int &clientSocket, std::string clientIP_str)
 {
 	std::string full_request(buffer, bytesReceived); // Convert to string using only the bytes received
 	HttpRequest req;
+
+	req.client_ip = clientIP_str; // Add the IP address.
 
 	// Extract (CRUD_Method, Path, http_version) from request line
 	std::istringstream request_stream(full_request);
@@ -122,15 +124,15 @@ void Server::process_request(const char *buffer, ssize_t bytesReceived, const in
 
 	std::istringstream line_stream(request_line);
 	if (!(line_stream >> req.method >> req.path >> req.http_version)) {
-		std::cerr << "Error parsing HTTP request line\n"; // TODO add error handling
+		Logger::getInstance().log(LogLevel::ERROR, std::format("Error parsing HTTP request line, IP: {}", req.client_ip));
 		return;
 	}
 
 	// Extract Headers and content length
 	size_t header_end_pos = full_request.find("\r\n\r\n");
 	if (header_end_pos == std::string::npos) {
-		std::cerr << "Request is malformed\n";
-		return; // TODO add error handling
+		Logger::getInstance().log(LogLevel::WARNING, std::format("HTTP request is malformed. IP: {}", req.client_ip));
+		return;
 	}
 
 	std::string headers_only = full_request.substr(0, header_end_pos);
@@ -179,20 +181,20 @@ void Server::process_request(const char *buffer, ssize_t bytesReceived, const in
 			ssize_t body_chunk_recv = recv(clientSocket, body_chunk, bytes_to_read, 0);
 
 			if (body_chunk_recv < 0) {
-				std::cerr << std::format("Error occurred while reading large body.\n", bufferSizeLimit_); //TODO add error handling
+				Logger::getInstance().log(LogLevel::ERROR, std::format("Error occurred while reading large body. IP: {}", bufferSizeLimit_, req.client_ip));
 				break;
 			}
-			std::cerr << "Client disconnected unexpectedly mid-body transfer.\n"; //TODO Add error handling
+			Logger::getInstance().log(LogLevel::INFO, std::format("Client disconnected unexpectedly mid-body transfer. IP: {}", req.client_ip));
 			// Append the received chunk
 			req.body.append(body_chunk, body_chunk_recv);
 			remaining_bytes -= body_chunk_recv; //update the remaining counter
 		}
 	}
 
-	cout << std::format("Extracted Method: {}, Extracted path: {}, Content-Length: {}\n\n", req.method, req.path, req.content_length);
+	Logger::getInstance().log(LogLevel::INFO, std::format("Extracted Method: {}, Extracted path: {}, Content-Length: {}", req.method, req.path, req.content_length));
 
 	if (req.method == "POST" && req.body.length() > 0) {
-		cout << "Request Body Data (UrlEncoded string): " << req.body << "\n";
+		Logger::getInstance().log(LogLevel::DEBUG, std::format("Request Body Data (UrlEncoded string): {}", req.body));
 	}
 	router_.route(req, clientSocket);
 }

@@ -23,6 +23,8 @@ struct HttpRequest {
 
 		std::string body;
 
+        std::string client_ip; // Note: I add this to HttpRequest, when I accept a new HTTP connection. 
+
 		std::unordered_map<std::string, std::string> headers;
 		// headers example:
 		// Key: Accept-Language, Value:  en-US,en;q=0.9,de;q=0.8
@@ -42,9 +44,7 @@ struct HttpRequest {
 		// Key: User-Agent, Value:  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36
 		//Key: sec-ch-ua, Value:  "Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"
 		// Key: Host, Value:  localhost:8080
-		// Extracted Method: POST, Extracted path: /api/register, Content-Length: 36
-		// Request Body Data (UrlEncoded string): username=asdasdas&password=asdasdasd
-		// Added user successfully, username:'asdasdas'.
+
 };
 
 /**

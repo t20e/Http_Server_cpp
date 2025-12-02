@@ -13,15 +13,17 @@
 **Objectives**:
 
 - Client can:
-  1. Register & login
+  1. Register & login.
   2. Retrieve cat images.
+  3. Use previous session (JWT token) to stay logged in.
 
-- HTTP server is Multi-Threaded.
-
+- Server is Multi-Threaded.
+- Implement a logger.
+- Testing with GTest.
 
 ### How To Run Project:
 
-1. Install all necccasty packages for backend and frontend
+1. Install all necessary packages for backend and frontend
 2. For VSC clangD extension to work properly bring make a symlink from the ./build/Release/compile_commands.json to the project's root. with command:
 ```bash
 ln -s build/Release/compile_commands.json # Run this line if you ever delete the /build again!

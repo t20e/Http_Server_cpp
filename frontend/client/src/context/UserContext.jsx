@@ -13,7 +13,7 @@ export const UserProvider = (props) => {
         const checkSessionToken = async () => {
             try {
                 const res = await axios.get(
-                    "http://localhost:8080/api/getLoggedUser",
+                    "http://localhost:8080/api/getUserByToken",
                     {
                         withCredentials: true, // Send cookie
                     }
