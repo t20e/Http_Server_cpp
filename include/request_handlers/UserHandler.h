@@ -2,7 +2,7 @@
 
 #include "DB_controller.h"
 #include "ResponseService.h"
-#include "config.h"
+#include "Config.h"
 #include "request_handlers/BaseHandler.h"
 #include "utils/http_data.h"
 

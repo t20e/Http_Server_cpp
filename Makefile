@@ -1,10 +1,8 @@
 
 # ======== 🌟 NOTE 🌟 ========
-# This Makefile is one I created without CMake, it is a good template for basic
-# projects without CMake, or another build system, justing using a Makefile
+# I used this Makefile before I implemented CMake with Conan. It is a good template for basic
+# projects without CMake, justing using a Makefile.
 # ============================
-
-# TODO After implementing CMake, update this Makefile to match.
 
 
 

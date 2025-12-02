@@ -5,7 +5,7 @@
 #include "./request_handlers/ImageHandler.h"
 #include "./request_handlers/UserHandler.h"
 #include "ResponseService.h"
-#include "config.h"
+#include "Config.h"
 #include "utils/http_data.h"
 
 /**

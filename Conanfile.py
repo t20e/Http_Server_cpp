@@ -23,9 +23,12 @@ class CompressorRecipe(ConanFile):
         #     self.requires("base64/0.4.0")
 
         self.requires("jwt-cpp/0.7.1")
-        self.requires("openssl/3.6.0")
+        self.requires("openssl/3.6.0")  # Required for jwt-cpp
         self.requires("sqlite3/3.51.0")
-        self.requires("picojson/1.3.0") # Solely for the jwt-cpp library, I handle all json API calls myself!
+        self.requires(
+            "picojson/1.3.0"
+        )  # Solely for the jwt-cpp library, I handle all json API calls myself!
+        self.requires("gtest/1.17.0")
 
     def build_requirements(self):
         self.tool_requires("cmake/3.27.9")
@@ -49,13 +52,14 @@ class CompressorRecipe(ConanFile):
         cmake.build()  # Performs the command `cmake --build`
 
         # Run the executable with command `./build/etc.../{executable_that_is_defined_in_CMakeLists.txt}`
- 
 
     def layout(self):
         """
         Define a layout for where to place the build.
         """
-        cmake_layout(self) # Lets Conan take care of this layout, sets up build/Release, build/generators, etc...
+        cmake_layout(
+            self
+        )  # Lets Conan take care of this layout, sets up build/Release, build/generators, etc...
 
     def validate(self):
         """

@@ -3,7 +3,6 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
-// TODO https://github.com/t20e/trading-app/blob/main/client/src/components/Dashboard.jsx
 const Dashboard = () => {
     const { loggedUser, setLoggedUser, isLoading } = useContext(UserContext);
     const redirect = useNavigate();
@@ -55,7 +54,7 @@ const Dashboard = () => {
         if (usersList.length === 0) {
             console.log("Getting all users.");
             axios
-                .get("http://localhost:8080/api/getAllusers", {
+                .get("http://localhost:8080/api/getAllUsers", {
                     withCredentials: true, // The browser will send the JWT token cookie automatically, if it has it!
                 })
                 .then((res) => {

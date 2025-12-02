@@ -1,22 +1,22 @@
+#include <arpa/inet.h>
 #include <cstddef>
 #include <ctime>
 #include <format>
-#include <iostream>
-#include <sstream>
-
-#include <arpa/inet.h>
 #include <netinet/in.h>
+#include <sstream>
+#include <stdexcept>
 #include <string>
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include "Config.h"
 #include "Server.h"
-#include "config.h"
+#include "ThreadPool.h"
 #include "utils/Logger.h"
 
 
-Server::Server(Config &config, Router &router)
-	: config_(config), router_(router) {}
+Server::Server(Config &config, Router &router, ThreadPool &threadPool)
+	: config_(config), router_(router), threadPool_(threadPool) {}
 
 int Server::launchServer()
 {
@@ -59,9 +59,11 @@ int Server::Listen()
 		Logger::getInstance().log(LogLevel::CRITICAL, "Failed to start listening for incoming connections.");
 		return -1;
 	}
+
 	Logger::getInstance().log(LogLevel::INFO, std::format("{} Server is listening on port: {} {}\n\n", std::string(16, '-'), config_.SERVER_PORT, std::string(16, '-')), 2);
 
 	while (true) {
+		// Main thread job is to only accept new connections.
 		Logger::getInstance().log(LogLevel::INFO, "Waiting for a new connection...", 2);
 
 		// Capture client IP
@@ -81,7 +83,7 @@ int Server::Listen()
 		// Add IP whitelisting
 		bool is_allowed = false;
 		// Check if IP is allowed
-		if (config_.allowed_IPs.count(clientIP_str)) {
+		if (config_.ALLOWED_IPs.count(clientIP_str)) {
 			is_allowed = true;
 		}
 
@@ -93,22 +95,41 @@ int Server::Listen()
 
 		Logger::getInstance().log(LogLevel::INFO, std::format("Client Connected, IP: {}", clientIP_str));
 
-		// Receive date from a client
-		char buffer[bufferSizeLimit_] = {0};
-		ssize_t bytesReceived = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
+		if (config_.ENABLE_MULTI_THREADING) {
+			// Hand off connected connection task to a new worker thread, main thread goes back to loop from here.
 
-		if (bytesReceived > 0) {
-			process_request(buffer, bytesReceived, clientSocket, clientIP_str);
-		} else if (bytesReceived == 0) {
-			Logger::getInstance().log(LogLevel::WARNING, std::format("Client disconnected abruptly. IP: {}", clientIP_str));
-		} else {
-			Logger::getInstance().log(LogLevel::ERROR, "recv() call Failed");
+			try {
+				threadPool_.enqueue([this, clientSocket, clientIP_str] {
+					this->handleClient(clientSocket, clientIP_str);
+				});
+			} catch (const std::runtime_error &e) {
+				// If the thread pool is stopped, catch errors of adding a new task here
+				Logger::getInstance().log(LogLevel::ERROR, std::format("Error why attempting to pass a new HTTP request task to a worker. Error: {} | Server is shutting down, rejecting client.", e.what()));
+				close(clientSocket);
+			}
+
+		} else { // Single-threaded, main thread performs the task, then goes back to loop.
+			this->handleClient(clientSocket, clientIP_str);
 		}
-
-		close(clientSocket); // Close the client's socket when finished communicating
 	}
 }
 
+void Server::handleClient(int clientSocket, std::string clientIP_str)
+{
+	// Receive date from a client
+	char buffer[bufferSizeLimit_] = {0};
+	ssize_t bytesReceived = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
+
+	if (bytesReceived > 0) {
+		process_request(buffer, bytesReceived, clientSocket, clientIP_str);
+	} else if (bytesReceived == 0) {
+		Logger::getInstance().log(LogLevel::WARNING, std::format("Client disconnected abruptly. IP: {}", clientIP_str));
+	} else {
+		Logger::getInstance().log(LogLevel::ERROR, "recv() call Failed");
+	}
+
+	close(clientSocket); // Close the client's socket when finished communicating
+}
 
 void Server::process_request(const char *buffer, ssize_t bytesReceived, const int &clientSocket, std::string clientIP_str)
 {

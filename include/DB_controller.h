@@ -54,7 +54,7 @@ class DB_controller {
 
 
 	private:
-		const std::string &db_name_;
+		const std::string db_name_;
 		sqlite3 *database_connection_ = nullptr;
 
 		/**

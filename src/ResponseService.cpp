@@ -1,7 +1,7 @@
 #include <bcrypt.h>
+#include <cstddef>
 #include <expected>
 #include <format>
-#include <iostream>
 #include <jwt-cpp/jwt.h>
 #include <jwt-cpp/traits/kazuho-picojson/defaults.h>
 #include <string>
@@ -10,7 +10,7 @@
 
 
 #include "ResponseService.h"
-#include "config.h"
+#include "Config.h"
 #include "utils/JsonResponse.h"
 #include "utils/Logger.h"
 #include "utils/http_data.h"
@@ -103,9 +103,13 @@ int ResponseService::sendResponse(std::string res, const int &clientSocket)
 
 	ssize_t bytes_sent = send(clientSocket, buffer, len, 0);
 	if (bytes_sent == -1) {
-		Logger::getInstance().log(LogLevel::ERROR, "Error sending client data");
+		Logger::getInstance().log(LogLevel::ERROR, "Error sending client data.");
 		return -1;
-	} else if (bytes_sent < len) {
+	} 
+    // Cast to suppress compiler warning.
+    size_t bytes_sent_cast = static_cast<size_t>(bytes_sent);
+
+     if (bytes_sent_cast < len) {
 		Logger::getInstance().log(LogLevel::ERROR, std::format("Warning: Only sent: {} of {} bytes in the http response!", bytes_sent, len));
 	}
 	close(clientSocket);

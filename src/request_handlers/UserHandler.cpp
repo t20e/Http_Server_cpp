@@ -1,6 +1,6 @@
 #include <bcrypt.h>
 #include <expected>
-#include <iostream>
+#include <format>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -8,7 +8,7 @@
 #include "./request_handlers/UserHandler.h"
 #include "DB_controller.h"
 #include "ResponseService.h"
-#include "config.h"
+#include "Config.h"
 #include "request_handlers/BaseHandler.h"
 #include "utils/JsonResponse.h"
 #include "utils/Logger.h"

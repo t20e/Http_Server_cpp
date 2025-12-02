@@ -13,9 +13,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # Generates compile_commands.json for the 
 
 # ---------------------- EXTERNAL CONAN LIBRARIES ----------------------
 find_package(jwt-cpp REQUIRED)
-find_package(OpenSSL REQUIRED)
+find_package(OpenSSL REQUIRED) # Required for jwt-cpp
 find_package(SQLite3 REQUIRED)
 find_package(picojson REQUIRED) # Solely for the jwt-cpp library, I handle all json API calls myself!
+find_package(GTest REQUIRED)
 
 # ---------------------- EXTERNAL LIBRARIES FROM ./libs----------------------
 # Handle libraries located at ./libs, these are typically packages that aren't distributed by Conan, or maybe Header-only libraries that I copied and pasted into ./libs.
@@ -62,3 +63,21 @@ add_executable(HttpServer src/main.cpp)
 target_link_libraries(HttpServer PRIVATE project_core)
 
  
+ # ---------------------- GTest TESTING ----------------------
+enable_testing() # tells CMake to prepare for testing
+
+# Recursively find all .cpp files in ./tests
+file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS ./tests/*.cpp)
+
+# Create a separate executable specifically for testing.
+add_executable(unit_tests ${TEST_SOURCES}) 
+
+# Link project core so testing can access ThreadPool, DB_controller ResponseService, etc...
+target_link_libraries(unit_tests PRIVATE
+    project_core
+    GTest::gtest
+    GTest::gtest_main
+)
+
+include(GoogleTest) # Use GTest module to auto-discover tests
+gtest_discover_tests(unit_tests)

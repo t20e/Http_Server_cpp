@@ -8,7 +8,7 @@
 
 #include "ResponseService.h"
 #include "Router.h"
-#include "config.h"
+#include "Config.h"
 #include "request_handlers/UserHandler.h"
 #include "utils/Logger.h"
 
@@ -31,7 +31,7 @@ Router::Router(
 			[this](const HttpRequest &req, const int &clientSocket) { this->image_handler_.getRandomImage(req, clientSocket); },
 		},
 		{
-			"GET /api/getAllusers",
+			"GET /api/getAllUsers",
 			[this](const HttpRequest &req, const int &clientSocket) { this->user_handler_.getAllUser(req, clientSocket); },
 		},
 		{
@@ -59,7 +59,7 @@ Router::Router(
 
 bool Router::validateOrigin(std::string requestOrigin)
 {
-	if (config_.allowed_origins.count(requestOrigin)) { // O(1)
+	if (config_.ALLOWED_ORIGINS.count(requestOrigin)) { // O(1)
 		return true;
 	}
 	return false;
@@ -87,7 +87,7 @@ void Router::route(HttpRequest &req, const int clientSocket)
 
 	} else if (!req.headers.count("Origin")) {
 		// Origin header is mandatory
-		Logger::getInstance().log(LogLevel::WARNING, std::format("Origin not sent in request header. Origin is mandatory!, IP: {}", req.client_ip));
+		Logger::getInstance().log(LogLevel::WARNING, std::format("Origin not set in request header. Origin is mandatory, Client forcibly disconnected!, IP: {}", req.client_ip));
 		resService_.sendForbidden(req, clientSocket);
 		return;
 	} else {

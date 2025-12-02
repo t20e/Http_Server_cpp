@@ -3,7 +3,6 @@
 #include <exception>
 #include <expected>
 #include <format>
-#include <iostream>
 #include <regex>
 #include <string>
 #include <sys/socket.h>
@@ -15,7 +14,7 @@
 #include "./request_handlers/AuthHandler.h"
 #include "DB_controller.h"
 #include "ResponseService.h"
-#include "config.h"
+#include "Config.h"
 #include "utils/JsonResponse.h"
 #include "utils/Logger.h"
 #include "utils/URL_encoded_parsing.h"
@@ -35,7 +34,6 @@ AuthHandler::AuthHandler(
 
 int AuthHandler::login(const HttpRequest &req, int clientSocket)
 {
-
 	std::unordered_map<std::string, std::string> formData = parseURLEncodedBody(req.body);
 	std::string inputUsername = formData["username"];
 	std::string inputPassword = formData["password"];
