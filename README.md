@@ -32,6 +32,7 @@ Built using the *POSIX standard*.
 ### Run Using Docker (Runs On All Operating Systems)
 
 ``` bash
+# You must have Docker installed!
 # Clone and `cd` into project's root.
 # Run the two containers: First one for the backend; and second for the frontend.
 docker compose up --build --attach server; 
