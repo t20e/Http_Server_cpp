@@ -1,3 +1,4 @@
+#include <iostream>
 #include <arpa/inet.h>
 #include <cstddef>
 #include <ctime>
@@ -74,7 +75,6 @@ int Server::Listen()
 			Logger::getInstance().log(LogLevel::ERROR, "Error accepting client socket.");
 			continue;
 		}
-
 		// Convert client IP address to string
 		char clientIP_cstr[INET_ADDRSTRLEN];
 		inet_ntop(AF_INET, &clientAddr.sin_addr, clientIP_cstr, sizeof(clientIP_cstr));
@@ -83,7 +83,7 @@ int Server::Listen()
 		// Add IP whitelisting
 		bool is_allowed = false;
 		// Check if IP is allowed
-		if (config_.ALLOWED_IPs.count(clientIP_str)) {
+        if(config_.ALLOWED_IPs.count(clientIP_str)) {
 			is_allowed = true;
 		}
 

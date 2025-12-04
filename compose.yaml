@@ -1,0 +1,38 @@
+# --- Run with: ---
+# docker compose up --build
+#   Or perform a hard reset
+#     docker compose down
+
+services:
+  # The backend server
+  server:
+    build: .
+    image: cpp_http_server
+    ports:
+      - "8080:8080" # For the backend server port
+    volumes:
+      - ./logs:/home/httpServerUser/logs # To view the live logs that are being written to inside the container as the server is running.
+    networks:
+      - my_static_network
+  
+  # The frontend react
+  client:
+    build: ./frontend/client
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true # Enable hot reloading.
+    volumes:
+      - ./frontend/client:/app
+      - /app/node_modules
+    stdin_open: true # Flag to keep react running
+    tty: true # Flag to keep react running
+    
+networks:
+  my_static_network:
+    driver: bridge
+    ipam:
+      config:
+      # 💡 NOTE: Docker masquerades the client's incoming IP address, since this project is only ran locally the client's IP will be "127.0.0.1" but Docker will change it to something like "192..." or other! So I setup a static IP that never changes so I can use it in the allowed IPs that connected to the server.
+        - subnet: 172.25.0.0/16
+          gateway: 172.25.0.1 # This is the IP the server will see as the client's IP

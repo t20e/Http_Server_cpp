@@ -59,9 +59,9 @@ int Logger::log(LogLevel level, const std::string &message, int num_pre_line_bre
 
 	//  Output to console
 	if (level == LogLevel::CRITICAL || level == LogLevel::ERROR) {
-		std::cerr << logEntry.str();
+		std::cerr << logEntry.str() << std::endl;
 	} else {
-		std::cout << logEntry.str();
+		std::cout << logEntry.str() << std::endl;
 	}
 
 	// Output to log file

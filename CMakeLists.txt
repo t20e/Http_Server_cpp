@@ -1,5 +1,5 @@
 
-# This CMake is paired with Conanfile.py
+# This CMake is paired with conanfile.py
 
 cmake_minimum_required(VERSION 3.23) # Minimum CMake version
 
@@ -19,7 +19,7 @@ find_package(picojson REQUIRED) # Solely for the jwt-cpp library, I handle all j
 find_package(GTest REQUIRED)
 
 # ---------------------- EXTERNAL LIBRARIES FROM ./libs----------------------
-# Handle libraries located at ./libs, these are typically packages that aren't distributed by Conan, or maybe Header-only libraries that I copied and pasted into ./libs.
+# Handle libraries located at ./libs, these are typically packages that aren't distributed by conan, or maybe Header-only libraries that I copied and pasted into ./libs.
 
 # Bcrypt.cpp 
 file(GLOB BCRYPT_SRCS "./libs/Bcrypt.cpp/*.cpp")
@@ -77,6 +77,7 @@ target_link_libraries(unit_tests PRIVATE
     project_core
     GTest::gtest
     GTest::gtest_main
+    GTest::gmock_main
 )
 
 include(GoogleTest) # Use GTest module to auto-discover tests

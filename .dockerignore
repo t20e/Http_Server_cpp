@@ -1,0 +1,24 @@
+.vscode
+.DS_STORE
+
+# Git metadata
+.git
+.gitignore
+
+# Build items
+build
+Build/
+CMakeUserPresets.json
+compile_commands.json
+Makefile
+
+# The frontend has its own Dockerfile
+Frontend/
+
+# Local Data & Logs
+database.db
+logs/
+*.log
+
+# 🚨 SECURITY NOTE: In a real-world project .env would also be ignored!
+# .env

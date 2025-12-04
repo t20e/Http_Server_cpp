@@ -22,7 +22,7 @@ class AuthHandler : BaseHandler {
          * @param user_id The user's ID. This way we can verify the user's token without having to query the database.
          * @return std::string The token string.
          */
-		std::string createJwtSessionToken(const int &user_id);
+		virtual std::string createJwtSessionToken(const int &user_id);
 
         /**
          * @brief Verify JWT session tokens to authenticate the user per each request!
@@ -55,7 +55,7 @@ class AuthHandler : BaseHandler {
          * @param client_socket The clients socket to send that response to.
          * @return int 
          */
-		int getUserByToken(const HttpRequest &req, const int &client_socket);
+		virtual int getUserByToken(const HttpRequest &req, const int &client_socket);
 
 		/**
          * @brief Middleware: Authenticate the user's session token for every request other than /login and /register.
@@ -64,7 +64,7 @@ class AuthHandler : BaseHandler {
          * @param client_socket The clients socket to send that response to.
          * @return true If token is valid, otherwise false.
          */
-		bool authenticateSessionToken(const HttpRequest &req);
+		virtual bool authenticateSessionToken(const HttpRequest &req);
 
 		/**
          * @brief Log the user out. Because we are using an HTTP-only session cookie (JWT-token) for user authentication, and React's javascript isn't allowed to access it. We need the backend to send the frontend Browser info, so the browser can delete its stored session cookie, and log the user out.
@@ -73,7 +73,7 @@ class AuthHandler : BaseHandler {
          * @param client_socket The clients socket to send that response to.
          * @return int 
          */
-		int logout(const HttpRequest &req, const int &client_socket);
+		virtual int logout(const HttpRequest &req, const int &client_socket);
 
 
 		/**
@@ -83,7 +83,7 @@ class AuthHandler : BaseHandler {
          * @param clientSocket The clients socket to send that response to.
          * @return int 
          */
-		int login(const HttpRequest &req, int clientSocket);
+		virtual int login(const HttpRequest &req, int clientSocket);
 
 		/**
          * @brief Log the user in.
@@ -92,5 +92,5 @@ class AuthHandler : BaseHandler {
          * @param clientSocket The clients socket to send that response to.
          * @return int 
          */
-		int registerUser(const HttpRequest &req, int clientSocket);
+		virtual int registerUser(const HttpRequest &req, int clientSocket);
 };

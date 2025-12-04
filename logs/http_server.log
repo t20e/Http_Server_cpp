@@ -3,35 +3,997 @@
 
 
 
-[2025-12-02 05:47:17] INFO: ---------------- Launching Application... ----------------
+[2025-12-03 21:58:40] INFO: ---------------- Launching Application... ----------------
 
 
-[2025-12-02 05:47:17] INFO: Opened Database.
-[2025-12-02 05:47:17] INFO: Schemas initialized.
-[2025-12-02 05:47:17] INFO: Added default users to the database.
-[2025-12-02 05:47:17] INFO: Initializing thread pool with 10 workers
-[2025-12-02 05:47:17] INFO: Launching the HTTP server...
+[2025-12-03 21:58:40] INFO: Opened Database.
+[2025-12-03 21:58:40] INFO: Schemas initialized.
+[2025-12-03 21:58:40] INFO: Added default users to the database.
+[2025-12-03 21:58:40] INFO: Initializing thread pool with 10 workers
+[2025-12-03 21:58:40] INFO: Launching the HTTP server...
 
 
-[2025-12-02 05:47:17] INFO: ---------------- Server is listening on port: 8080 ----------------
+[2025-12-03 21:58:40] INFO: ---------------- Server is listening on port: 8080 ----------------
 
 
 
 
-[2025-12-02 05:47:17] INFO: Waiting for a new connection...
-[2025-12-02 08:10:25] INFO: Initializing thread pool with 4 workers
-[2025-12-02 09:03:36] INFO: Initializing thread pool with 4 workers
-[2025-12-02 09:09:36] INFO: Initializing thread pool with 4 workers
-[2025-12-02 09:11:34] INFO: Initializing thread pool with 4 workers
-[2025-12-02 09:12:07] INFO: Initializing thread pool with 4 workers
-[2025-12-02 09:27:09] INFO: Initializing thread pool with 4 workers
-[2025-12-02 09:35:40] INFO: Initializing thread pool with 4 workers
-[2025-12-02 10:07:54] INFO: Initializing thread pool with 4 workers
-[2025-12-02 10:21:38] INFO: Initializing thread pool with 4 workers
-[2025-12-02 10:22:04] INFO: Initializing thread pool with 4 workers
-[2025-12-02 10:22:25] INFO: Initializing thread pool with 4 workers
-[2025-12-02 10:24:38] INFO: Initializing thread pool with 4 workers
-[2025-12-02 10:25:38] INFO: Initializing thread pool with 4 workers
-[2025-12-02 10:26:01] INFO: Initializing thread pool with 4 workers
-[2025-12-02 10:26:45] INFO: Initializing thread pool with 4 workers
-[2025-12-02 10:28:17] INFO: Initializing thread pool with 4 workers
+[2025-12-03 21:58:40] INFO: Waiting for a new connection...
+[2025-12-03 21:58:41] INFO: Client Connected, IP: 127.0.0.1
+
+
+[2025-12-03 21:58:41] INFO: Waiting for a new connection...
+[2025-12-03 21:58:41] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-03 21:58:41] INFO: Checking User session token, IP: 127.0.0.1
+[2025-12-03 21:58:41] WARNING: No session token provided, user's IP: 127.0.0.1
+[2025-12-03 21:58:41] INFO: Client Connected, IP: 127.0.0.1
+
+
+[2025-12-03 21:58:41] INFO: Waiting for a new connection...
+[2025-12-03 21:58:41] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-03 21:58:41] INFO: Checking User session token, IP: 127.0.0.1
+[2025-12-03 21:58:41] WARNING: No session token provided, user's IP: 127.0.0.1
+
+
+
+
+
+[2025-12-03 21:59:05] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-03 21:59:05] INFO: Opened Database.
+[2025-12-03 21:59:05] INFO: Schemas initialized.
+[2025-12-03 21:59:05] INFO: Added default users to the database.
+[2025-12-03 21:59:05] INFO: Initializing thread pool with 10 workers
+[2025-12-03 21:59:05] INFO: Launching the HTTP server...
+
+
+[2025-12-03 21:59:05] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-03 21:59:05] INFO: Waiting for a new connection...
+[2025-12-03 21:59:07] WARNING: Rejected connection from IP: 127.0.0.1
+
+
+[2025-12-03 21:59:07] INFO: Waiting for a new connection...
+[2025-12-03 21:59:07] WARNING: Rejected connection from IP: 127.0.0.1
+
+
+[2025-12-03 21:59:07] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 03:00:50] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:00:50] INFO: Opened Database.
+[2025-12-04 03:00:50] INFO: Schemas initialized.
+[2025-12-04 03:00:50] INFO: Added default users to the database.
+[2025-12-04 03:00:50] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:00:50] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:00:50] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:00:50] INFO: Waiting for a new connection...
+[2025-12-04 03:01:11] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:01:11] INFO: Waiting for a new connection...
+[2025-12-04 03:01:11] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:01:11] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 03:02:16] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:02:16] INFO: Opened Database.
+[2025-12-04 03:02:16] INFO: Schemas initialized.
+[2025-12-04 03:02:16] INFO: Added default users to the database.
+[2025-12-04 03:02:16] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:02:16] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:02:16] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:02:16] INFO: Waiting for a new connection...
+[2025-12-04 03:02:18] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:02:18] INFO: Waiting for a new connection...
+[2025-12-04 03:02:18] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:02:18] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:02:18] WARNING: No session token provided, user's IP: 192.168.65.1
+[2025-12-04 03:02:18] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:02:18] INFO: Waiting for a new connection...
+[2025-12-04 03:02:18] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:02:18] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:02:18] WARNING: No session token provided, user's IP: 192.168.65.1
+[2025-12-04 03:02:36] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:02:36] INFO: Waiting for a new connection...
+[2025-12-04 03:02:36] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-04 03:02:36] DEBUG: Request Body Data (UrlEncoded string): username=asdad&password=asddasdas
+[2025-12-04 03:02:36] INFO: Registering user...
+[2025-12-04 03:02:36] INFO: Successfully added a user, username: 'asdad'
+[2025-12-04 03:02:36] INFO: Created new token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE3NjQ5MDM3NTYsImlhdCI6MTc2NDgxNzM1NiwiaXNzIjoiYXV0aDAiLCJyb2xlIjoidXNlciIsInN1YiI6IjYifQ.dbhTl76qpvNPxQ1EJzYFP1lAQLajVNgk4tn9wNVs0PU
+[2025-12-04 03:02:36] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:02:36] INFO: Waiting for a new connection...
+[2025-12-04 03:02:36] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:02:36] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:02:36] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:02:36] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:02:36] INFO: Waiting for a new connection...
+[2025-12-04 03:02:36] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:02:36] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:02:36] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:02:37] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:02:37] INFO: Waiting for a new connection...
+[2025-12-04 03:02:37] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:02:37] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:02:37] ERROR: Unknown error: filesystem error: directory iterator cannot open directory: No such file or directory [./server_images]
+
+
+
+
+
+[2025-12-04 03:03:33] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:03:33] INFO: Opened Database.
+[2025-12-04 03:03:33] INFO: Schemas initialized.
+[2025-12-04 03:03:33] INFO: Added default users to the database.
+[2025-12-04 03:03:33] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:03:33] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:03:33] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:03:33] INFO: Waiting for a new connection...
+[2025-12-04 03:03:34] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:03:34] INFO: Waiting for a new connection...
+[2025-12-04 03:03:34] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:03:34] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:03:34] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:03:34] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:03:34] INFO: Waiting for a new connection...
+[2025-12-04 03:03:34] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:03:34] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:03:34] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:03:39] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:03:39] INFO: Waiting for a new connection...
+[2025-12-04 03:03:39] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-04 03:03:39] DEBUG: Request Body Data (UrlEncoded string): username=asdsad&password=asdasds
+[2025-12-04 03:03:39] INFO: Registering user...
+[2025-12-04 03:03:39] INFO: Successfully added a user, username: 'asdsad'
+[2025-12-04 03:03:39] INFO: Created new token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE3NjQ5MDM4MTksImlhdCI6MTc2NDgxNzQxOSwiaXNzIjoiYXV0aDAiLCJyb2xlIjoidXNlciIsInN1YiI6IjYifQ.1BWjZt9FKIMG0SggER1GR47qPYCafNABJkSshXYtPes
+[2025-12-04 03:03:40] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:03:40] INFO: Waiting for a new connection...
+[2025-12-04 03:03:40] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:03:40] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:03:40] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:03:40] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:03:40] INFO: Waiting for a new connection...
+[2025-12-04 03:03:40] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:03:40] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:03:40] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:03:41] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:03:41] INFO: Waiting for a new connection...
+[2025-12-04 03:03:41] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:03:41] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:03:41] ERROR: Unknown error: filesystem error: directory iterator cannot open directory: No such file or directory [./server_images]
+
+
+
+
+
+[2025-12-04 03:05:45] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:05:45] INFO: Opened Database.
+[2025-12-04 03:05:45] INFO: Schemas initialized.
+[2025-12-04 03:05:45] INFO: Added default users to the database.
+[2025-12-04 03:05:45] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:05:45] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:05:45] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:05:45] INFO: Waiting for a new connection...
+[2025-12-04 03:05:51] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:05:51] INFO: Waiting for a new connection...
+[2025-12-04 03:05:51] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:05:51] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:05:51] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:05:51] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:05:51] INFO: Waiting for a new connection...
+[2025-12-04 03:05:51] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:05:51] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:05:51] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:05:53] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:05:53] INFO: Waiting for a new connection...
+[2025-12-04 03:05:53] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:05:53] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:05:53] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:05:53] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:05:53] INFO: Waiting for a new connection...
+[2025-12-04 03:05:53] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:05:53] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:05:53] INFO: Couldn't fetch user from their id: 6
+
+
+
+
+
+[2025-12-04 03:05:59] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:05:59] INFO: Opened Database.
+[2025-12-04 03:05:59] INFO: Schemas initialized.
+[2025-12-04 03:05:59] INFO: Added default users to the database.
+[2025-12-04 03:05:59] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:05:59] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:05:59] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:05:59] INFO: Waiting for a new connection...
+[2025-12-04 03:06:00] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:06:00] INFO: Waiting for a new connection...
+[2025-12-04 03:06:00] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:06:00] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:06:00] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:06:00] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:06:00] INFO: Waiting for a new connection...
+[2025-12-04 03:06:00] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:06:00] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:06:00] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:06:03] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:06:03] INFO: Waiting for a new connection...
+[2025-12-04 03:06:03] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-04 03:06:03] DEBUG: Request Body Data (UrlEncoded string): username=asdasd&password=asdads
+[2025-12-04 03:06:03] INFO: Registering user...
+[2025-12-04 03:06:03] INFO: Successfully added a user, username: 'asdasd'
+[2025-12-04 03:06:03] INFO: Created new token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE3NjQ5MDM5NjMsImlhdCI6MTc2NDgxNzU2MywiaXNzIjoiYXV0aDAiLCJyb2xlIjoidXNlciIsInN1YiI6IjYifQ.U5px182t5okHEPu35656qP4RU1V86lGLewfiH2ZseT8
+[2025-12-04 03:06:03] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:06:03] INFO: Waiting for a new connection...
+[2025-12-04 03:06:03] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:06:03] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:06:03] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:06:03] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:06:03] INFO: Waiting for a new connection...
+[2025-12-04 03:06:03] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:06:03] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:06:03] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:06:04] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:06:04] INFO: Waiting for a new connection...
+[2025-12-04 03:06:04] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:06:05] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:06:05] ERROR: Unknown error: filesystem error: directory iterator cannot open directory: No such file or directory [./server_images]
+
+
+
+
+
+[2025-12-04 03:11:30] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:11:30] INFO: Opened Database.
+[2025-12-04 03:11:30] INFO: Schemas initialized.
+[2025-12-04 03:11:30] INFO: Added default users to the database.
+[2025-12-04 03:11:30] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:11:30] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:11:30] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:11:30] INFO: Waiting for a new connection...
+[2025-12-04 03:11:34] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:11:34] INFO: Waiting for a new connection...
+[2025-12-04 03:11:34] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:11:34] INFO: Waiting for a new connection...
+[2025-12-04 03:11:37] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:11:37] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 03:13:59] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:13:59] INFO: Opened Database.
+[2025-12-04 03:13:59] INFO: Schemas initialized.
+[2025-12-04 03:13:59] INFO: Added default users to the database.
+[2025-12-04 03:13:59] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:13:59] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:13:59] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:13:59] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 03:15:43] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:15:43] INFO: Opened Database.
+[2025-12-04 03:15:43] INFO: Schemas initialized.
+[2025-12-04 03:15:43] INFO: Added default users to the database.
+[2025-12-04 03:15:43] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:15:43] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:15:43] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:15:43] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 03:22:00] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:22:00] INFO: Opened Database.
+[2025-12-04 03:22:00] INFO: Schemas initialized.
+[2025-12-04 03:22:00] INFO: Added default users to the database.
+[2025-12-04 03:22:00] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:22:00] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:22:00] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:22:00] INFO: Waiting for a new connection...
+[2025-12-04 03:22:04] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:22:04] INFO: Waiting for a new connection...
+[2025-12-04 03:22:04] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:22:04] INFO: Waiting for a new connection...
+[2025-12-04 03:22:10] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:22:10] INFO: Waiting for a new connection...
+[2025-12-04 03:22:10] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:22:10] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 03:23:35] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:23:35] INFO: Opened Database.
+[2025-12-04 03:23:35] INFO: Schemas initialized.
+[2025-12-04 03:23:35] INFO: Added default users to the database.
+[2025-12-04 03:23:35] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:23:35] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:23:35] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:23:35] INFO: Waiting for a new connection...
+[2025-12-04 03:23:39] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:23:39] INFO: Waiting for a new connection...
+[2025-12-04 03:23:39] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:23:39] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 03:26:18] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:26:18] INFO: Opened Database.
+[2025-12-04 03:26:18] INFO: Schemas initialized.
+[2025-12-04 03:26:18] INFO: Added default users to the database.
+[2025-12-04 03:26:18] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:26:18] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:26:18] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:26:18] INFO: Waiting for a new connection...
+[2025-12-04 03:26:20] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:26:20] INFO: Waiting for a new connection...
+[2025-12-04 03:26:20] WARNING: Rejected connection from IP: 192.168.65.1
+
+
+[2025-12-04 03:26:20] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 03:26:53] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:26:53] INFO: Opened Database.
+[2025-12-04 03:26:53] INFO: Schemas initialized.
+[2025-12-04 03:26:53] INFO: Added default users to the database.
+[2025-12-04 03:26:53] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:26:53] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:26:53] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:26:53] INFO: Waiting for a new connection...
+[2025-12-04 03:26:54] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:26:54] INFO: Waiting for a new connection...
+[2025-12-04 03:26:54] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:26:54] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:26:54] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:26:54] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:26:54] INFO: Waiting for a new connection...
+[2025-12-04 03:26:54] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:26:54] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:26:54] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:27:12] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:27:12] INFO: Waiting for a new connection...
+[2025-12-04 03:27:12] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:27:12] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:27:12] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:27:12] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:27:12] INFO: Waiting for a new connection...
+[2025-12-04 03:27:12] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:27:12] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:27:12] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:27:16] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:27:16] INFO: Waiting for a new connection...
+[2025-12-04 03:27:16] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-04 03:27:16] DEBUG: Request Body Data (UrlEncoded string): username=asdasd&password=asdasd
+[2025-12-04 03:27:16] INFO: Registering user...
+[2025-12-04 03:27:16] INFO: Successfully added a user, username: 'asdasd'
+[2025-12-04 03:27:16] INFO: Created new token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE3NjQ5MDUyMzYsImlhdCI6MTc2NDgxODgzNiwiaXNzIjoiYXV0aDAiLCJyb2xlIjoidXNlciIsInN1YiI6IjYifQ.HucZi7jGHKVft3IJaGdRIQ4LBcVN6_iHlgOi80rV28o
+[2025-12-04 03:27:16] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:27:16] INFO: Waiting for a new connection...
+[2025-12-04 03:27:16] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:27:16] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:27:16] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:27:16] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:27:16] INFO: Waiting for a new connection...
+[2025-12-04 03:27:16] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:27:16] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:27:16] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:27:17] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:27:17] INFO: Waiting for a new connection...
+[2025-12-04 03:27:17] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:27:17] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:27:17] DEBUG: Random Image Path: ./server_images/cat-2.png
+
+
+
+
+
+[2025-12-04 03:28:22] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:28:22] INFO: Opened Database.
+[2025-12-04 03:28:22] INFO: Schemas initialized.
+[2025-12-04 03:28:22] INFO: Added default users to the database.
+[2025-12-04 03:28:22] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:28:22] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:28:22] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:28:22] INFO: Waiting for a new connection...
+[2025-12-04 03:28:24] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:28:24] INFO: Waiting for a new connection...
+[2025-12-04 03:28:24] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:28:24] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:28:24] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:28:24] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:28:24] INFO: Waiting for a new connection...
+[2025-12-04 03:28:24] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:28:24] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:28:24] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:28:29] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:28:29] INFO: Waiting for a new connection...
+[2025-12-04 03:28:29] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-04 03:28:29] DEBUG: Request Body Data (UrlEncoded string): username=asd&password=asdsad
+[2025-12-04 03:28:29] INFO: Registering user...
+[2025-12-04 03:28:29] INFO: Successfully added a user, username: 'asd'
+[2025-12-04 03:28:29] INFO: Created new token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE3NjQ5MDUzMDksImlhdCI6MTc2NDgxODkwOSwiaXNzIjoiYXV0aDAiLCJyb2xlIjoidXNlciIsInN1YiI6IjYifQ.B42pbKUxOOZtMk5UA0QtJodUAcE9c66_I45Fe9H4s9I
+[2025-12-04 03:28:29] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:28:29] INFO: Waiting for a new connection...
+[2025-12-04 03:28:29] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:28:29] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:28:29] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:28:29] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:28:29] INFO: Waiting for a new connection...
+[2025-12-04 03:28:29] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:28:29] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:28:29] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:28:30] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:28:30] INFO: Waiting for a new connection...
+[2025-12-04 03:28:30] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:28:30] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:28:30] DEBUG: Random Image Path: ./server_images/cat-4.png
+
+
+
+
+
+[2025-12-04 03:44:50] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:44:50] INFO: Opened Database.
+[2025-12-04 03:44:50] INFO: Schemas initialized.
+[2025-12-04 03:44:50] INFO: Added default users to the database.
+[2025-12-04 03:44:50] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:44:50] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:44:50] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:44:50] INFO: Waiting for a new connection...
+[2025-12-04 03:44:51] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:51] INFO: Waiting for a new connection...
+[2025-12-04 03:44:51] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:44:51] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:44:51] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:44:51] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:51] INFO: Waiting for a new connection...
+[2025-12-04 03:44:51] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:44:51] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:44:51] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 03:44:54] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:54] INFO: Waiting for a new connection...
+[2025-12-04 03:44:54] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-04 03:44:54] DEBUG: Request Body Data (UrlEncoded string): username=asdasd&password=asdasd
+[2025-12-04 03:44:54] INFO: Registering user...
+[2025-12-04 03:44:54] INFO: Successfully added a user, username: 'asdasd'
+[2025-12-04 03:44:54] INFO: Created new token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE3NjQ5MDYyOTQsImlhdCI6MTc2NDgxOTg5NCwiaXNzIjoiYXV0aDAiLCJyb2xlIjoidXNlciIsInN1YiI6IjYifQ.s2nBJHZsJkBYt4xcSI8n598iPWZGl1pFoLJKXmOFhq8
+[2025-12-04 03:44:54] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:54] INFO: Waiting for a new connection...
+[2025-12-04 03:44:54] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:44:54] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:54] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:44:54] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:54] INFO: Waiting for a new connection...
+[2025-12-04 03:44:54] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:44:54] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:54] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:44:56] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:56] INFO: Waiting for a new connection...
+[2025-12-04 03:44:56] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:56] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:56] DEBUG: Random Image Path: ./server_images/cat-2.png
+[2025-12-04 03:44:57] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:57] INFO: Waiting for a new connection...
+[2025-12-04 03:44:57] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:57] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:57] DEBUG: Random Image Path: ./server_images/cat-1.png
+[2025-12-04 03:44:57] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:57] INFO: Waiting for a new connection...
+[2025-12-04 03:44:57] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:57] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:57] DEBUG: Random Image Path: ./server_images/cat-2.png
+[2025-12-04 03:44:57] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:57] INFO: Waiting for a new connection...
+[2025-12-04 03:44:57] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:57] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:57] DEBUG: Random Image Path: ./server_images/cat-3.png
+[2025-12-04 03:44:57] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:57] INFO: Waiting for a new connection...
+[2025-12-04 03:44:57] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:57] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:57] DEBUG: Random Image Path: ./server_images/cat-5.png
+[2025-12-04 03:44:57] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:57] INFO: Waiting for a new connection...
+[2025-12-04 03:44:57] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:57] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:57] DEBUG: Random Image Path: ./server_images/cat-2.png
+[2025-12-04 03:44:58] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:58] INFO: Waiting for a new connection...
+[2025-12-04 03:44:58] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:58] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:58] DEBUG: Random Image Path: ./server_images/cat-4.png
+[2025-12-04 03:44:58] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:58] INFO: Waiting for a new connection...
+[2025-12-04 03:44:58] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:58] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:58] DEBUG: Random Image Path: ./server_images/cat-4.png
+[2025-12-04 03:44:58] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:58] INFO: Waiting for a new connection...
+[2025-12-04 03:44:58] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:58] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:58] DEBUG: Random Image Path: ./server_images/cat-4.png
+[2025-12-04 03:44:58] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:58] INFO: Waiting for a new connection...
+[2025-12-04 03:44:58] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:58] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:58] DEBUG: Random Image Path: ./server_images/cat-4.png
+[2025-12-04 03:44:58] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:58] INFO: Waiting for a new connection...
+[2025-12-04 03:44:58] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:44:58] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:58] DEBUG: Random Image Path: ./server_images/cat-3.png
+[2025-12-04 03:44:59] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:44:59] INFO: Waiting for a new connection...
+[2025-12-04 03:44:59] INFO: Extracted Method: GET, Extracted path: /api/logout, Content-Length: 0
+[2025-12-04 03:44:59] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:44:59] INFO: Logging user out. User's IP: 192.168.65.1
+
+
+
+
+
+[2025-12-04 03:56:07] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 03:56:07] INFO: Opened Database.
+[2025-12-04 03:56:07] INFO: Schemas initialized.
+[2025-12-04 03:56:07] INFO: Added default users to the database.
+[2025-12-04 03:56:07] INFO: Initializing thread pool with 10 workers
+[2025-12-04 03:56:07] INFO: Launching the HTTP server...
+
+
+[2025-12-04 03:56:07] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 03:56:07] INFO: Waiting for a new connection...
+[2025-12-04 03:56:12] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:56:12] INFO: Waiting for a new connection...
+[2025-12-04 03:56:12] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:56:12] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:56:12] WARNING: No session token provided, user's IP: 192.168.65.1
+[2025-12-04 03:56:12] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:56:12] INFO: Waiting for a new connection...
+[2025-12-04 03:56:12] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:56:12] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:56:12] WARNING: No session token provided, user's IP: 192.168.65.1
+[2025-12-04 03:56:19] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:56:19] INFO: Waiting for a new connection...
+[2025-12-04 03:56:19] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-04 03:56:19] DEBUG: Request Body Data (UrlEncoded string): username=asda&password=asdasds
+[2025-12-04 03:56:19] INFO: Registering user...
+[2025-12-04 03:56:19] INFO: Successfully added a user, username: 'asda'
+[2025-12-04 03:56:19] INFO: Created new token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE3NjQ5MDY5NzksImlhdCI6MTc2NDgyMDU3OSwiaXNzIjoiYXV0aDAiLCJyb2xlIjoidXNlciIsInN1YiI6IjYifQ.PmzuZq5BXEg8ioPRWusH1AfRLfGFTLTQWJ2UtIUHkPo
+[2025-12-04 03:56:19] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:56:19] INFO: Waiting for a new connection...
+[2025-12-04 03:56:19] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:56:19] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:56:19] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:56:19] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:56:19] INFO: Waiting for a new connection...
+[2025-12-04 03:56:19] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:56:19] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:56:19] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:56:20] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:56:20] INFO: Waiting for a new connection...
+[2025-12-04 03:56:20] INFO: Extracted Method: GET, Extracted path: /api/getRandomImage, Content-Length: 0
+[2025-12-04 03:56:20] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:56:20] DEBUG: Random Image Path: ./server_images/cat-2.png
+[2025-12-04 03:56:22] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:56:22] INFO: Waiting for a new connection...
+[2025-12-04 03:56:22] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 03:56:22] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 03:56:23] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:56:23] INFO: Waiting for a new connection...
+[2025-12-04 03:56:23] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:56:23] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:56:23] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 03:56:23] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 03:56:23] INFO: Waiting for a new connection...
+[2025-12-04 03:56:23] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 03:56:23] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 03:56:23] INFO: Getting all users for IP: 192.168.65.1
+
+
+
+
+
+[2025-12-04 04:03:39] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 04:03:39] INFO: Opened Database.
+[2025-12-04 04:03:39] INFO: Schemas initialized.
+[2025-12-04 04:03:39] INFO: Added default users to the database.
+[2025-12-04 04:03:39] INFO: Initializing thread pool with 10 workers
+[2025-12-04 04:03:39] INFO: Launching the HTTP server...
+
+
+[2025-12-04 04:03:39] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 04:03:39] INFO: Waiting for a new connection...
+[2025-12-04 04:03:53] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 04:03:53] INFO: Waiting for a new connection...
+[2025-12-04 04:03:53] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 04:03:53] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 04:03:53] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 04:03:53] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 04:03:53] INFO: Waiting for a new connection...
+[2025-12-04 04:03:53] INFO: Extracted Method: GET, Extracted path: /api/getUserByToken, Content-Length: 0
+[2025-12-04 04:03:53] INFO: Checking User session token, IP: 192.168.65.1
+[2025-12-04 04:03:53] INFO: Couldn't fetch user from their id: 6
+[2025-12-04 04:03:55] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 04:03:55] INFO: Waiting for a new connection...
+[2025-12-04 04:03:55] INFO: Extracted Method: POST, Extracted path: /api/register, Content-Length: 0
+[2025-12-04 04:03:55] DEBUG: Request Body Data (UrlEncoded string): username=adasd&password=asdasd
+[2025-12-04 04:03:55] INFO: Registering user...
+[2025-12-04 04:03:55] INFO: Successfully added a user, username: 'adasd'
+[2025-12-04 04:03:55] INFO: Created new token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE3NjQ5MDc0MzUsImlhdCI6MTc2NDgyMTAzNSwiaXNzIjoiYXV0aDAiLCJyb2xlIjoidXNlciIsInN1YiI6IjYifQ.TP-7cLT_USnKiDVXzuFqXlXgb4EsbIxt4eat0hgGmKE
+[2025-12-04 04:03:55] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 04:03:55] INFO: Waiting for a new connection...
+[2025-12-04 04:03:55] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 04:03:55] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 04:03:55] INFO: Getting all users for IP: 192.168.65.1
+[2025-12-04 04:03:55] INFO: Client Connected, IP: 192.168.65.1
+
+
+[2025-12-04 04:03:55] INFO: Waiting for a new connection...
+[2025-12-04 04:03:55] INFO: Extracted Method: GET, Extracted path: /api/getAllUsers, Content-Length: 0
+[2025-12-04 04:03:55] INFO: User's IP: 192.168.65.1 | Session token is valid.
+[2025-12-04 04:03:55] INFO: Getting all users for IP: 192.168.65.1
+
+
+
+
+
+[2025-12-04 04:06:13] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 04:06:13] INFO: Opened Database.
+[2025-12-04 04:06:13] INFO: Schemas initialized.
+[2025-12-04 04:06:13] INFO: Added default users to the database.
+[2025-12-04 04:06:13] INFO: Initializing thread pool with 10 workers
+[2025-12-04 04:06:13] INFO: Launching the HTTP server...
+
+
+[2025-12-04 04:06:13] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 04:06:13] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 04:09:34] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 04:09:34] INFO: Opened Database.
+[2025-12-04 04:09:34] INFO: Schemas initialized.
+[2025-12-04 04:09:34] INFO: Added default users to the database.
+[2025-12-04 04:09:34] INFO: Initializing thread pool with 10 workers
+[2025-12-04 04:09:34] INFO: Launching the HTTP server...
+
+
+[2025-12-04 04:09:34] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 04:09:34] INFO: Waiting for a new connection...
+
+
+
+
+
+[2025-12-04 04:10:22] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-04 04:10:22] INFO: Opened Database.
+[2025-12-04 04:10:22] INFO: Schemas initialized.
+[2025-12-04 04:10:22] INFO: Added default users to the database.
+[2025-12-04 04:10:22] INFO: Initializing thread pool with 10 workers
+[2025-12-04 04:10:22] INFO: Launching the HTTP server...
+
+
+[2025-12-04 04:10:22] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-04 04:10:22] INFO: Waiting for a new connection...

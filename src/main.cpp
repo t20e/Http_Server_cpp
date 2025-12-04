@@ -15,7 +15,6 @@
 #include "request_handlers/UserHandler.h"
 #include "utils/Logger.h"
 
-
 int main()
 {
 	Logger::getInstance().log(LogLevel::INFO, std::format("{} Launching Application... {}\n\n", std::string(16, '-'), std::string(16, '-')), 5);

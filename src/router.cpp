@@ -98,7 +98,7 @@ void Router::route(HttpRequest &req, const int clientSocket)
 		}
 	}
 
-	//TODO Read the body after the Origin has validated, remove that code form server-> process_request() to heres, so we dont read a large body right before checking if the origin is valid.
+	// ---NOTE---: Should read the body after the Origin has been validated, remove that code form server-> process_request() to here, so we dont read a large body right before checking if the origin is valid.
 
 
 	// Handle POST OPTIONS preflight
