@@ -35,17 +35,13 @@ int DB_controller::openDatabase()
 {
 	std::string target_dir;
 
-	// Check for specific Environment variables.
+	// Check for Docker specific Environment variable set in Docker: compose.yaml
 	const char *env_dir = getenv("DB_DIR");
-	if (env_dir) { // Environment variable set in Docker: compose.yaml
+
+	if (env_dir) { // Case running in Docker
 		target_dir = env_dir;
-	} else { // Fallback to HOME for local machine (MAC)
-		const char *home_dir = getenv("HOME");
-		if (!home_dir) {
-			Logger::getInstance().log(LogLevel::CRITICAL, "Neither 'HOME' or 'DB_DIR' environment variable not set!");
-			return 1;
-		}
-		target_dir = home_dir;
+	} else { // Running locally
+		target_dir = "."; // "." represents current working directory.
 	}
 
 	// Ensure the directory exists
