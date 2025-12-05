@@ -1,8 +1,7 @@
 #pragma once
 
-#include "DB_controller.h"
-#include "ResponseService.h"
 #include "Config.h"
+#include "Interfaces.h"
 
 
 /**
@@ -11,11 +10,11 @@
  */
 class BaseHandler {
 	public:
-		BaseHandler(Config &config, DB_controller &db, ResponseService &responseService)
+		BaseHandler(Config &config, IDB_controller &db, IResponseService &responseService)
 			: config_(config), db_(db), resService_(responseService) {}
 
 	protected:
 		Config &config_;
-		DB_controller &db_;
-		ResponseService &resService_;
+		IDB_controller &db_;
+		IResponseService &resService_;
 };

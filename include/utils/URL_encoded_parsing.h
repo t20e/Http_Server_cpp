@@ -37,7 +37,7 @@ inline std::string urlDecode(const std::string &encodedStr)
 
 
 /**
- * @brief Parse a request body in URLEncodedForm (not JSON), and convert the data into a vector of key-value pairs, e.g., "username=john%20Doe%20&password=test%40" turns into {'username':'john', 'password':'test@'}
+ * @brief Parse a request body in URLEncodedForm (not JSON), and convert the data into a vector of key-value pairs, e.g., "username=johnDoe&password=test%40" turns into {'username':'johnDoe', 'password':'test@'}
  * 
  * @param body Raw URLEncodedForm string from a Request Body.
  * @return std::string 

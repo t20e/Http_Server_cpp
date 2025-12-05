@@ -1,21 +1,32 @@
 # Docker for the frontend application
+# Using Multi-Stage Build: Which makes the final container size go from being 500+MB to ~78MB!
+
+# ---------------------- Stage 1: Build React App ----------------------
 
 # Light version of Node
-FROM node:18-alpine 
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
 # Copy pack.json first to cache dependencies
 COPY package.json package-lock.json ./
-
-# Install dependencies inside the container
-RUN npm install
+RUN npm ci --omit=dev
 
 # Copy rest of the code into the container
 COPY . .
 
-# EXPOSE the React frontend port
-EXPOSE 3000
+# Build the react build
+RUN npm run build
 
-# Start the React server
-CMD ["npm", "start"]
+
+# ---------------------- Stage 2: Serve The Build ----------------------
+FROM nginx:stable-alpine
+
+# Copy the react build output to the container
+COPY --from=builder /app/build /usr/share/nginx/html
+
+# Expose the React frontend port
+EXPOSE 80
+
+# Serve the React app with nginx
+CMD [ "nginx", "-g", "daemon off;" ]

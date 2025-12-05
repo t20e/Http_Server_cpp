@@ -100,7 +100,7 @@ int ResponseService::sendResponse(std::string res, const int &clientSocket)
 {
 	const char *buffer = res.c_str();
 	size_t len = res.length();
-
+    
 	ssize_t bytes_sent = send(clientSocket, buffer, len, 0);
 	if (bytes_sent == -1) {
 		Logger::getInstance().log(LogLevel::ERROR, "Error sending client data.");

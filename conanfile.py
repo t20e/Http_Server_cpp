@@ -26,8 +26,8 @@ class CompressorRecipe(ConanFile):
         self.requires("openssl/3.6.0")  # Required for jwt-cpp
         self.requires("sqlite3/3.51.0")
         self.requires(
-            "picojson/1.3.0"
-        )  # Solely for the jwt-cpp library, I handle all json API calls myself!
+            "picojson/1.3.0"  # Solely for the jwt-cpp library, I handle all json API calls myself!
+        )
         self.requires("gtest/1.17.0")
 
     def build_requirements(self):

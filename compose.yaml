@@ -9,30 +9,31 @@ services:
     build: .
     image: cpp_http_server
     ports:
-      - "8080:8080" # For the backend server port
-    volumes:
-      - ./logs:/home/httpServerUser/logs # To view the live logs that are being written to inside the container as the server is running.
+      - "8080:8080" # For the backend server port. In production port:443 (HTTPS) is recommended!
+    volumes: # volumes are used to persistent data and share files between the host machine and the container, or between containers. 
+      - ./logs:/home/httpServerUser/logs # Allows use to view the live ./logs directory from within the container on the host machine, almost like a symlink!
+      - ./database.db:/home/httpServerUser/database.db
     networks:
       - my_static_network
   
-  # The frontend react
+  # The frontend React
   client:
     build: ./frontend/client
     ports:
-      - "3000:3000"
+      - "3000:80" # External: 3000  → Internal: 80 for nginx to serve react app
     environment:
       - CHOKIDAR_USEPOLLING=true # Enable hot reloading.
     volumes:
       - ./frontend/client:/app
       - /app/node_modules
-    stdin_open: true # Flag to keep react running
-    tty: true # Flag to keep react running
+    stdin_open: true # Flag to keep React running
+    tty: true # Flag to keep React running
     
 networks:
   my_static_network:
     driver: bridge
     ipam:
       config:
-      # 💡 NOTE: Docker masquerades the client's incoming IP address, since this project is only ran locally the client's IP will be "127.0.0.1" but Docker will change it to something like "192..." or other! So I setup a static IP that never changes so I can use it in the allowed IPs that connected to the server.
+      # 💡 NOTE: Docker masquerades the client's incoming IP address, since this project is only ran locally the client's IP will be "127.0.0.1" but Docker will change it to something like "192..." or other! So, I setup a private static IP that never changes. I can then use it in the allowed IPs that connect to the server. However, note that this is only for systems like ubuntu or windows, for Mac specifically I added 192.168.65.1 private IP in the .env file.
         - subnet: 172.25.0.0/16
           gateway: 172.25.0.1 # This is the IP the server will see as the client's IP

@@ -35,6 +35,7 @@ int main()
 	ImageHandler imageHandler(config, db, responseService);
 	UserHandler userHandler(config, db, responseService);
 
+
 	Router router(
 		config,
 		responseService,
@@ -44,7 +45,6 @@ int main()
 
 	Server s = Server(config, router, threadPool);
 	if (s.launchServer() == -1) {
-		Logger::getInstance();
 		Logger::getInstance().log(LogLevel::CRITICAL, "Server failed to launch. Exiting.", 3);
 		return 1;
 	}

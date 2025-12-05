@@ -1,8 +1,7 @@
 #pragma once
 
-#include "DB_controller.h"
-#include "ResponseService.h"
 #include "Config.h"
+#include "Interfaces.h"
 #include "request_handlers/BaseHandler.h"
 #include "utils/http_data.h"
 
@@ -11,15 +10,18 @@
  * @brief Handles all user related HTTP requests and responses, other than authentication.
  * 
  */
-class UserHandler :BaseHandler{
+class UserHandler : BaseHandler {
 
 	private:
-
 	public:
 		UserHandler(
 			Config &config,
-			DB_controller &db,
-			ResponseService &responseService);
+			IDB_controller &db,
+			IResponseService &responseService);
+		// UserHandler(
+		// 	Config &config,
+		// 	DB_controller &db,
+		// 	ResponseService &responseService);
 
 
 		/**

@@ -1,8 +1,8 @@
-#include <iostream>
 #include <arpa/inet.h>
 #include <cstddef>
 #include <ctime>
 #include <format>
+#include <iostream>
 #include <netinet/in.h>
 #include <sstream>
 #include <stdexcept>
@@ -83,7 +83,7 @@ int Server::Listen()
 		// Add IP whitelisting
 		bool is_allowed = false;
 		// Check if IP is allowed
-        if(config_.ALLOWED_IPs.count(clientIP_str)) {
+		if (config_.ALLOWED_IPs.count(clientIP_str)) {
 			is_allowed = true;
 		}
 
@@ -183,6 +183,14 @@ void Server::process_request(const char *buffer, ssize_t bytesReceived, const in
 
 			// Store in map
 			req.headers[key] = value;
+
+			if (key == "Content-Length") {
+				try {
+					req.content_length = std::stoi(value);
+				} catch (const std::exception &e) {
+					Logger::getInstance().log(LogLevel::ERROR, std::format("Invalid Content-length value: {} | Error: {} | IP: {}", value, e.what(), clientIP_str));
+				}
+			}
 		}
 	}
 

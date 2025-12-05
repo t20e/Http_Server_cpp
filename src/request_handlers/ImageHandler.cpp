@@ -17,6 +17,7 @@
 
 
 #include "request_handlers/ImageHandler.h"
+#include "Interfaces.h"
 #include "utils/Logger.h"
 #include "utils/http_data.h"
 
@@ -26,8 +27,8 @@
 
 ImageHandler::ImageHandler(
 	Config &config,
-	DB_controller &db,
-	ResponseService &responseService)
+	IDB_controller &db,
+	IResponseService &responseService)
 	: BaseHandler(config, db, responseService) {}
 
 
@@ -109,6 +110,7 @@ int ImageHandler::getRandomImage(const HttpRequest &req, const int &client_socke
 		send(client_socket, headers.c_str(), headers.size(), 0);
 		// Send the POST image buffer data
 		send(client_socket, image_buffer.data(), image_buffer.size(), 0);
+        close(client_socket);
 		return 0;
 
 	} catch (const std::filesystem::filesystem_error &err) {

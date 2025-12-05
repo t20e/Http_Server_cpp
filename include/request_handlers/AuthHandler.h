@@ -1,8 +1,6 @@
 #pragma once
 
-#include <variant>
-#include "DB_controller.h"
-#include "ResponseService.h"
+#include "Interfaces.h"
 #include "Config.h"
 #include "request_handlers/BaseHandler.h"
 #include "utils/http_data.h"
@@ -45,8 +43,8 @@ class AuthHandler : BaseHandler {
 	public:
 		AuthHandler(
 			Config &config,
-			DB_controller &db,
-			ResponseService &responseService);
+			IDB_controller &db,
+			IResponseService &responseService);
 
 		/**
          * @brief Check if the user's session token is valid. If valid return the user's data, otherwise null.

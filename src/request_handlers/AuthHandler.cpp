@@ -12,9 +12,8 @@
 #include <jwt-cpp/traits/kazuho-picojson/defaults.h>
 
 #include "./request_handlers/AuthHandler.h"
-#include "DB_controller.h"
-#include "ResponseService.h"
 #include "Config.h"
+#include "Interfaces.h"
 #include "utils/JsonResponse.h"
 #include "utils/Logger.h"
 #include "utils/URL_encoded_parsing.h"
@@ -27,8 +26,8 @@ using std::cout;
 
 AuthHandler::AuthHandler(
 	Config &config,
-	DB_controller &db,
-	ResponseService &responseService)
+	IDB_controller &db,
+	IResponseService &responseService)
 	: BaseHandler(config, db, responseService) {}
 
 

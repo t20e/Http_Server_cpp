@@ -1,8 +1,7 @@
 #pragma once
 
-#include "DB_controller.h"
-#include "ResponseService.h"
 #include "Config.h"
+#include "Interfaces.h"
 #include "request_handlers/BaseHandler.h"
 #include "utils/http_data.h"
 
@@ -17,8 +16,8 @@ class ImageHandler : BaseHandler {
 	public:
 		ImageHandler(
 			Config &config,
-			DB_controller &db,
-			ResponseService &responseService);
+			IDB_controller &db,
+			IResponseService &responseService);
 
 
 		/**
