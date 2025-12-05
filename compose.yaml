@@ -10,9 +10,11 @@ services:
     image: cpp_http_server
     ports:
       - "8080:8080" # For the backend server port. In production port:443 (HTTPS) is recommended!
+    environment:
+      - DB_DIR=/app/project_root # Where should db directory be saved.
     volumes: # volumes are used to persistent data and share files between the host machine and the container, or between containers. 
-      - ./logs:/home/httpServerUser/logs # Allows use to view the live ./logs directory from within the container on the host machine, almost like a symlink!
-      - ./database.db:/home/httpServerUser/database.db
+      - ./logs:/app/logs # Allows use to view the live ./logs directory from within the container on the host machine, almost like a symlink!
+      - ./:/app/project_root
     networks:
       - my_static_network
   
@@ -23,9 +25,9 @@ services:
       - "3000:80" # External: 3000  → Internal: 80 for nginx to serve react app
     environment:
       - CHOKIDAR_USEPOLLING=true # Enable hot reloading.
-    volumes:
-      - ./frontend/client:/app
-      - /app/node_modules
+    # volumes:
+      # - ./frontend/client:/app
+      # - /app/node_modules
     stdin_open: true # Flag to keep React running
     tty: true # Flag to keep React running
     

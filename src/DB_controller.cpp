@@ -1,4 +1,5 @@
 #include <expected>
+#include <filesystem>
 #include <format>
 #include <sqlite3.h>
 #include <string>
@@ -32,14 +33,33 @@ int DB_controller::createDatabase()
 
 int DB_controller::openDatabase()
 {
-	const char *curr_dir_c = getenv("HOME");
+	std::string target_dir;
 
-	if (!curr_dir_c) {
-		Logger::getInstance().log(LogLevel::CRITICAL, "HOME environment variable not set!");
+	// Check for specific Environment variables.
+	const char *env_dir = getenv("DB_DIR");
+	if (env_dir) { // Environment variable set in Docker: compose.yaml
+		target_dir = env_dir;
+	} else { // Fallback to HOME for local machine (MAC)
+		const char *home_dir = getenv("HOME");
+		if (!home_dir) {
+			Logger::getInstance().log(LogLevel::CRITICAL, "Neither 'HOME' or 'DB_DIR' environment variable not set!");
+			return 1;
+		}
+		target_dir = home_dir;
+	}
+
+	// Ensure the directory exists
+	try {
+		if (!std::filesystem::exists(target_dir)) {
+			std::filesystem::create_directories(target_dir);
+		}
+	} catch (const std::exception &e) {
+		Logger::getInstance().log(LogLevel::CRITICAL, std::format("Could not create directory. | Error msg: {}", e.what()));
 		return 1;
 	}
-	std::string curr_dir_str = curr_dir_c;
-	std::string db_path = curr_dir_str + "/" + db_name_;
+
+	// Construct full path
+	std::string db_path = target_dir + "/" + db_name_;
 
 	int db = sqlite3_open(db_path.c_str(), &database_connection_);
 	if (db) {

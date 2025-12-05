@@ -51,8 +51,12 @@
 1. Start-up the backend server:
 
     ```sh
-    # Install backend dependencies
+    # Install backend dependencies and generate CMake toolchain
+    conan install . --output-folder=build --build=missing
+    
+    # Build 
     conan build .;
+
     # Start the backend
     ./build/Release/HttpServer;
     ```
@@ -77,11 +81,8 @@
     npm run build;
         # For developer mode use: `npm start`
 
-    # Install serve package to serve the build
-    npm install -g serve;
-
     # Serve the build
-    serve -s build;
+    npx serve -s build;
     ```
 
    - [Go to frontend](http://localhost:3000/)
