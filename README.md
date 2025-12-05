@@ -52,7 +52,7 @@
 
     ```sh
     # Install backend dependencies and generate CMake toolchain
-    conan install . --output-folder=build --build=missing
+    conan install . --build=missing;
     
     # Build 
     conan build .;
