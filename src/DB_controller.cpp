@@ -32,14 +32,24 @@ int DB_controller::createDatabase()
 
 int DB_controller::openDatabase()
 {
-	int db = sqlite3_open(db_name_.c_str(), &database_connection_);
+	const char *curr_dir_c = getenv("HOME");
+
+	if (!curr_dir_c) {
+		Logger::getInstance().log(LogLevel::CRITICAL, "HOME environment variable not set!");
+		return 1;
+	}
+	std::string curr_dir_str = curr_dir_c;
+	std::string db_path = curr_dir_str + "/" + db_name_;
+
+	int db = sqlite3_open(db_path.c_str(), &database_connection_);
 	if (db) {
-		Logger::getInstance().log(LogLevel::CRITICAL, std::format("Can't open database: {}", sqlite3_errmsg(database_connection_)));
+		Logger::getInstance().log(LogLevel::CRITICAL, std::format("Can't open database | Error_msg: {}", sqlite3_errmsg(database_connection_)));
 		return 1;
 	}
 	Logger::getInstance().log(LogLevel::INFO, "Opened Database.");
 	return 0;
 }
+
 
 int DB_controller::initSchema()
 {

@@ -1186,3 +1186,43 @@
 [2025-12-05 14:05:21] INFO: Extracted Method: GET, Extracted path: /api/logout, Content-Length: 0
 [2025-12-05 14:05:21] INFO: User's IP: 127.0.0.1 | Session token is valid.
 [2025-12-05 14:05:21] INFO: Logging user out. User's IP: 127.0.0.1
+
+
+
+
+
+[2025-12-05 14:38:29] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-05 14:38:29] INFO: Opened Database.
+[2025-12-05 14:38:29] INFO: Schemas initialized.
+[2025-12-05 14:38:29] INFO: Added default users to the database.
+[2025-12-05 14:38:29] INFO: Initializing thread pool with 10 workers
+[2025-12-05 14:38:29] INFO: Launching the HTTP server...
+[2025-12-05 14:38:29] CRITICAL: Error binding the server socket to the address.
+
+
+
+[2025-12-05 14:38:29] CRITICAL: Server failed to launch. Exiting.
+[2025-12-05 14:38:29] INFO: Database connection closed successfully.
+
+
+
+
+
+[2025-12-05 14:38:44] INFO: ---------------- Launching Application... ----------------
+
+
+[2025-12-05 14:38:44] INFO: Opened Database.
+[2025-12-05 14:38:44] INFO: Schemas initialized.
+[2025-12-05 14:38:44] INFO: Added default users to the database.
+[2025-12-05 14:38:44] INFO: Initializing thread pool with 10 workers
+[2025-12-05 14:38:44] INFO: Launching the HTTP server...
+
+
+[2025-12-05 14:38:44] INFO: ---------------- Server is listening on port: 8080 ----------------
+
+
+
+
+[2025-12-05 14:38:44] INFO: Waiting for a new connection...
